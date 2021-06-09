@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Categories=Graphics;
+Icon=harbour-syncthing
+Exec=harbour-syncthing
+Name=Syncthing
+Comment=Continuous Replication Synchronization Thing
