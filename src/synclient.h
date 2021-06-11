@@ -12,12 +12,7 @@ public:
     explicit SynClient(QObject *parent = nullptr);
     virtual ~SynClient();
 
-    enum SynStatus {
-        Running, Stopped
-    };
-    Q_ENUMS(SynStatus)
-
-    Q_INVOKABLE SynStatus getStatus() const;
+    Q_INVOKABLE double getUptime() const;
 
 private:
     QNetworkAccessManager *network;

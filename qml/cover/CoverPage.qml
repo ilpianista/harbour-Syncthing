@@ -22,7 +22,7 @@ import Sailfish.Silica 1.0
 CoverBackground {
 
     CoverPlaceholder {
-        text: client.getStatus() === 0 ? qsTr("Running") : qsTr("Stopped");
+        text: client.getUptime() > 0 ? qsTr("Running") : qsTr("Stopped");
         icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-syncthing.png"
     }
 }

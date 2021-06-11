@@ -48,7 +48,7 @@ SynClient::~SynClient()
     delete network;
 }
 
-SynClient::SynStatus SynClient::getStatus() const
+double SynClient::getUptime() const
 {
     QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/system/status")));
     req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
@@ -59,20 +59,20 @@ SynClient::SynStatus SynClient::getStatus() const
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    SynStatus status = SynStatus::Stopped;
+    double uptime = 0.0;
     if (reply->error() == QNetworkReply::NoError) {
         QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
 
         if (!json.isNull()) {
-            QJsonValue uptime = json.object().value("uptime");
+            QJsonValue value = json.object().value("uptime");
 
-            if (!uptime.isNull()) {
-                status = SynStatus::Running;
+            if (!value.isNull()) {
+                uptime = value.toDouble();
             }
         }
     }
 
     reply->deleteLater();
 
-    return status;
+    return uptime;
 }
