@@ -32,7 +32,23 @@ BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  desktop-file-utils
 
 %description
-Open Source Continuous Replication / Cluster Synchronization Thing
+Open Source Continuous Replication / Cluster Synchronization Thing.
+
+%if "%{?vendor}" == "chum"
+PackageName: Syncthing
+Type: desktop-application
+DeveloperName: Andrea Scarpino
+Categories:
+ - Network
+Custom:
+  Repo: https://gitlab.com/ilpianista/harbour-Syncthing
+Screenshots:
+ - https://gitlab.com/ilpianista/harbour-Syncthing/-/raw/master/screenshots/screenshot_1.png
+Url:
+  Homepage: https://gitlab.com/ilpianista/harbour-Syncthing
+  Bugtracker: https://gitlab.com/ilpianista/harbour-Syncthing/-/issues
+  Donation: https://paypal.me/andreascarpino
+%endif
 
 
 %prep
