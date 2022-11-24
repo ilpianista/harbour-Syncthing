@@ -2,8 +2,6 @@
 
 [Sailfish OS](https://sailfishos.org) UI for [Syncthing](https://syncthing.net/).
 
-[![Build Status](https://gitlab.com/ilpianista/harbour-Syncthing/badges/master/pipeline.svg)](https://gitlab.com/ilpianista/harbour-Syncthing/pipelines)
-
 ## Translations
 
 [![Translation status](https://hosted.weblate.org/widgets/harbour-syncthing/-/svg-badge.svg)](https://hosted.weblate.org/engage/harbour-syncthing/?utm_source=widget)
