@@ -55,7 +55,6 @@ Requires:
 
 # All installed files
 Files:
-  - '%{_bindir}'
   - '%{_bindir}/syncthing'
   - '%{_datadir}/%{name}'
   - '%{_userunitdir}/syncthing.service'

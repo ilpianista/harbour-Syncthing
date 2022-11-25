@@ -87,7 +87,6 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(-,root,root,-)
-%{_bindir}
 %{_bindir}/syncthing
 %{_datadir}/%{name}
 %{_userunitdir}/syncthing.service
