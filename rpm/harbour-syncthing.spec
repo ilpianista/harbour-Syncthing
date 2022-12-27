@@ -43,11 +43,11 @@ Categories:
 Custom:
   Repo: https://github.com/ilpianista/harbour-Syncthing
 Screenshots:
- - https://github.com/ilpianista/harbour-Syncthing/-/raw/master/screenshots/screenshot_1.png
+ - https://raw.githubusercontent.com/ilpianista/harbour-Syncthing/master/screenshots/screenshot_1.png
 Url:
   Homepage: https://github.com/ilpianista/harbour-Syncthing
-  Bugtracker: https://github.com/ilpianista/harbour-Syncthing/-/issues
-  Donation: https://paypal.me/andreascarpino
+  Bugtracker: https://github.com/ilpianista/harbour-Syncthing/issues
+  Donation: https://liberapay.com/ilpianista
 %endif
 
 
@@ -88,9 +88,22 @@ desktop-file-install --delete-original       \
 %files
 %defattr(-,root,root,-)
 %{_bindir}/syncthing
+%{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_userunitdir}/syncthing.service
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 # >> files
 # << files
+
+%post
+systemctl daemon-reload
+
+%preun
+if [ $1 -eq 0 ]; then
+  systemctl --user stop syncthing.service
+  systemctl --user disable syncthing.service
+fi
+
+%postun
+systemctl daemon-reload

@@ -10,6 +10,10 @@ on:
     branches:
       - master
 
+env:
+  RELEASE: 4.4.0.68
+  SYNCTHING_VERSION: 1.22.2
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,27 +22,52 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Prepare
-      run: mkdir output
+      run: mkdir RPMS
 
     - name: Build armv7hl
       id: build_armv7hl
-      uses: coderus/github-sfos-build@master
-      with:
-        release: 4.4.0.58
+      run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
+            mkdir -p build ;
+            cd build ;
+            cp -r /workspace/* . ;
+            cd rpm ;
+            curl -OL https://github.com/syncthing/syncthing/releases/download/v${SYNCTHING_VERSION}/syncthing-linux-arm-v${SYNCTHING_VERSION}.tar.gz ;
+            tar xfz syncthing-linux-arm-v${SYNCTHING_VERSION}.tar.gz ;
+            mv syncthing-linux-arm-v${SYNCTHING_VERSION}/syncthing . ;
+            cd .. ;
+            mb2 -t SailfishOS-$RELEASE-armv7hl build ;
+            sudo mkdir -p /workspace/RPMS ;
+            sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
     - name: Build i486
       id: build_i486
-      uses: coderus/github-sfos-build@master
-      with:
-        release: 4.4.0.58
-        arch: i486
+      run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
+            mkdir -p build ;
+            cd build ;
+            cp -r /workspace/* . ;
+            cd rpm ;
+            curl -OL https://github.com/syncthing/syncthing/releases/download/v${SYNCTHING_VERSION}/syncthing-linux-386-v${SYNCTHING_VERSION}.tar.gz ;
+            tar xfz syncthing-linux-386-v${SYNCTHING_VERSION}.tar.gz ;
+            mv syncthing-linux-386-v${SYNCTHING_VERSION}/syncthing . ;
+            cd .. ;
+            mb2 -t SailfishOS-$RELEASE-i486 build ;
+            sudo mkdir -p /workspace/RPMS ;
+            sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
-    - name: Build i486
+    - name: Build aarch64
       id: build_aarch64
-      uses: coderus/github-sfos-build@master
-      with:
-        release: 4.4.0.58
-        arch: aarch64
+      run: docker run --rm --privileged -v $PWD:/workspace coderus/sailfishos-platform-sdk:$RELEASE /bin/bash -c "
+            mkdir -p build ;
+            cd build ;
+            cp -r /workspace/* . ;
+            cd rpm ;
+            curl -OL https://github.com/syncthing/syncthing/releases/download/v${SYNCTHING_VERSION}/syncthing-linux-arm64-v${SYNCTHING_VERSION}.tar.gz ;
+            tar xfz syncthing-linux-arm64-v${SYNCTHING_VERSION}.tar.gz ;
+            mv syncthing-linux-arm64-v${SYNCTHING_VERSION}/syncthing . ;
+            cd .. ;
+            mb2 -t SailfishOS-$RELEASE-aarch64 build ;
+            sudo mkdir -p /workspace/RPMS ;
+            sudo cp -r RPMS/*.rpm /workspace/RPMS"
 
     - name: Upload build result
       uses: actions/upload-artifact@v2

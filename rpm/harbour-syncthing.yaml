@@ -25,11 +25,11 @@ Description: |
   Custom:
     Repo: https://github.com/ilpianista/harbour-Syncthing
   Screenshots:
-   - https://github.com/ilpianista/harbour-Syncthing/-/raw/master/screenshots/screenshot_1.png
+   - https://raw.githubusercontent.com/ilpianista/harbour-Syncthing/master/screenshots/screenshot_1.png
   Url:
     Homepage: https://github.com/ilpianista/harbour-Syncthing
-    Bugtracker: https://github.com/ilpianista/harbour-Syncthing/-/issues
-    Donation: https://paypal.me/andreascarpino
+    Bugtracker: https://github.com/ilpianista/harbour-Syncthing/issues
+    Donation: https://liberapay.com/ilpianista
   %endif
 Configure: none
 # The qtc5 builder inserts macros to allow QtCreator to have fine
@@ -56,6 +56,7 @@ Requires:
 # All installed files
 Files:
   - '%{_bindir}/syncthing'
+  - '%{_bindir}/%{name}'
   - '%{_datadir}/%{name}'
   - '%{_userunitdir}/syncthing.service'
   - '%{_datadir}/applications/%{name}.desktop'

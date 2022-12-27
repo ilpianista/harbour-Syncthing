@@ -2,5 +2,6 @@
 *.pro.user
 *.pro.user.*
 *.autosave
+RPMS
 
 rpm/syncthing
