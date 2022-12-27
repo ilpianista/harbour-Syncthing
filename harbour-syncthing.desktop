@@ -6,3 +6,8 @@ Icon=harbour-syncthing
 Exec=harbour-syncthing
 Name=Syncthing
 Comment=Continuous Replication Synchronization Thing
+
+[X-Sailjail]
+Permissions=Internet
+OrganizationName=dev.scarpino
+ApplicationName=harbour-syncthing
