@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QCoreApplication::setApplicationName(QStringLiteral("harbour-syncthing"));
-    QCoreApplication::setOrganizationDomain(QStringLiteral("scarpino.dev"));
+    QCoreApplication::setOrganizationName(QStringLiteral("scarpino.dev"));
 
     SynClient client;
     view->rootContext()->setContextProperty("client", &client);
