@@ -61,16 +61,6 @@ Page {
                 enabled: client.getUptime() > 0
 
                 onClicked: {
-                    startSyncthing();
-                }
-            }
-
-            MenuItem {
-                id: start
-                text: qsTr("Start")
-                enabled: client.getUptime() === 0
-
-                onClicked: {
                     systemd.typedCall('StopUnit',
                         [
                             { 'type': 's', 'value': 'syncthing.service' },
@@ -80,6 +70,16 @@ Page {
                             status.text = qsTr("Syncthing is stopped");
                         }
                     );
+                }
+            }
+
+            MenuItem {
+                id: start
+                text: qsTr("Start")
+                enabled: client.getUptime() === 0
+
+                onClicked: {
+                    startSyncthing();
                 }
             }
         }
