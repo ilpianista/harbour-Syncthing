@@ -12,7 +12,7 @@ public:
     explicit SynClient(QObject *parent = nullptr);
     virtual ~SynClient();
 
-    Q_INVOKABLE double getUptime() const;
+    Q_INVOKABLE double getUptime();
 
 private:
     QNetworkAccessManager *network;

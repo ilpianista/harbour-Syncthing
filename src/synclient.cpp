@@ -48,7 +48,7 @@ SynClient::~SynClient()
     delete network;
 }
 
-double SynClient::getUptime() const
+double SynClient::getUptime()
 {
     QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/system/status")));
     req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
