@@ -14,7 +14,7 @@ SynUtils::SynUtils()
 QString SynUtils::getApiKey() {
     QDomDocument xml;
 
-    QFile configFile(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation)
+    QFile configFile(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation)
                             + QDir::separator() + "syncthing" + QDir::separator() + "config.xml");
 
     if (!configFile.open(QIODevice::ReadOnly)) {

@@ -97,13 +97,13 @@ desktop-file-install --delete-original       \
 # << files
 
 %post
-systemctl daemon-reload
+systemctl-user daemon-reload
 
 %preun
 if [ $1 -eq 0 ]; then
-  systemctl --user stop syncthing.service
-  systemctl --user disable syncthing.service
+  systemctl-user stop syncthing.service
+  systemctl-user disable syncthing.service
 fi
 
 %postun
-systemctl daemon-reload
+systemctl-user daemon-reload

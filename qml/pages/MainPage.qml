@@ -18,6 +18,90 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Nemo.DBus 2.0
 
 Page {
+
+    allowedOrientations: Orientation.All
+
+    DBusInterface {
+        id: systemd
+
+        service: 'org.freedesktop.systemd1'
+        path: '/org/freedesktop/systemd1'
+        iface: 'org.freedesktop.systemd1.Manager'
+    }
+
+    function startSyncthing() {
+        systemd.typedCall('StartUnit',
+            [
+                { 'type': 's', 'value': 'syncthing.service' },
+                { 'type': 's', 'value': 'fail' }
+            ],
+            function(result) {
+                status.text = qsTr("Syncthing is running");
+                stop.enabled = true;
+                start.enabled = false;
+            },
+            function(error, message) {
+                status.text = qsTr("Syncthing is stopped");
+                console.log("failed (" + error + ") with:", message)
+            }
+       );
+    }
+
+    SilicaFlickable {
+        anchors.fill: parent
+        contentHeight: column.height
+
+        PullDownMenu {
+            MenuItem {
+                id: stop
+                text: qsTr("Stop")
+                enabled: client.getUptime() > 0
+
+                onClicked: {
+                    startSyncthing();
+                }
+            }
+
+            MenuItem {
+                id: start
+                text: qsTr("Start")
+                enabled: client.getUptime() === 0
+
+                onClicked: {
+                    systemd.typedCall('StopUnit',
+                        [
+                            { 'type': 's', 'value': 'syncthing.service' },
+                            { 'type': 's', 'value': 'fail' }
+                        ],
+                        function(result) {
+                            status.text = qsTr("Syncthing is stopped");
+                        }
+                    );
+                }
+            }
+        }
+
+        Column {
+            id: column
+            width: parent.width
+            spacing: Theme.paddingLarge
+
+            PageHeader {
+                title: "Syncthing"
+            }
+
+            Label {
+                id: status
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width
+            }
+        }
+    }
+
+    Component.onCompleted: {
+        startSyncthing();
+    }
 }
