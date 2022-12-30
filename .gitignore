@@ -4,4 +4,4 @@
 *.autosave
 RPMS
 
-rpm/syncthing
+rpm/*.tar.gz

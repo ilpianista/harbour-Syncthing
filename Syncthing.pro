@@ -14,7 +14,6 @@ OTHER_FILES += \
     harbour-syncthing.desktop \
     rpm/harbour-syncthing.changes \
     rpm/harbour-syncthing.spec \
-    rpm/harbour-syncthing.yaml \
     rpm/syncthing.service \
     translations/*.ts
 

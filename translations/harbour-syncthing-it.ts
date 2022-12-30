@@ -12,4 +12,23 @@
         <translation>Fermato</translation>
     </message>
 </context>
+<context>
+    <name>MainPage</name>
+    <message>
+        <source>Syncthing is running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Syncthing is stopped</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
