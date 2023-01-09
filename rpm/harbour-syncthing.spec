@@ -2,7 +2,7 @@ Name:       harbour-syncthing
 
 # >> macros
 %global _missing_build_ids_terminate_build 0
-%define syncthing_version 1.22.2
+%define syncthing_version 1.23.0
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
