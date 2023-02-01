@@ -8,6 +8,6 @@ Name=Syncthing
 Comment=Continuous Replication Synchronization Thing
 
 [X-Sailjail]
-Permissions=Internet
+Permissions=Internet;AppLaunch
 OrganizationName=dev.scarpino
 ApplicationName=harbour-syncthing
