@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2021 Andrea Scarpino <andrea@scarpino.dev>
+    Copyright (C) 2021-2023 Andrea Scarpino <andrea@scarpino.dev>
     All rights reserved.
 
     This program is free software: you can redistribute it and/or modify
@@ -21,8 +21,23 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
 
+    Timer {
+        id: coverTimer
+        interval: 10000 // 10 s
+        repeat: true
+        running: (status === Cover.Active)
+        onTriggered: {
+            placeholder.text = getStatus();
+        }
+    }
+
+    function getStatus() {
+        return client.getUptime() > 0 ? qsTr("Running") : qsTr("Stopped");
+    }
+
     CoverPlaceholder {
-        text: client.getUptime() > 0 ? qsTr("Running") : qsTr("Stopped");
+        id: placeholder
+        text: getStatus()
         icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-syncthing.png"
     }
 }

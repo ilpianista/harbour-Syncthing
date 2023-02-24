@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2021 Andrea Scarpino <andrea@scarpino.dev>
+    Copyright (C) 2021-2023 Andrea Scarpino <andrea@scarpino.dev>
     All rights reserved.
 
     This program is free software: you can redistribute it and/or modify
@@ -68,6 +68,8 @@ Page {
                         ],
                         function(result) {
                             status.text = qsTr("Syncthing is stopped");
+                            start.enabled = true;
+                            stop.enabled = false;
                         }
                     );
                 }
