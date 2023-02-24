@@ -1,2 +1,2 @@
-* Tue Jun 9 2021 Andrea Scarpino <andrea@scarpino.dev> 0.0.1-1
-- Show syncthing running status
+* Sat Feb 25 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.1-1
+- Start/stop syncthing. Show its status.
