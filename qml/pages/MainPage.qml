@@ -40,11 +40,10 @@ Page {
             ],
             function(result) {
                 status.text = qsTr("Syncthing is running");
-                stop.enabled = true;
+                stop.enabled = browser.enabled = true;
                 start.enabled = false;
             },
             function(error, message) {
-                status.text = qsTr("Syncthing is stopped");
                 console.log("failed (" + error + ") with:", message)
             }
        );
@@ -55,6 +54,14 @@ Page {
         contentHeight: column.height
 
         PullDownMenu {
+            MenuItem {
+                id: browser
+                text: qsTr("Open in browser")
+                enabled: client.getUptime() > 0
+
+                onClicked: Qt.openUrlExternally("http://localhost:8384")
+            }
+
             MenuItem {
                 id: stop
                 text: qsTr("Stop")
@@ -69,7 +76,7 @@ Page {
                         function(result) {
                             status.text = qsTr("Syncthing is stopped");
                             start.enabled = true;
-                            stop.enabled = false;
+                            stop.enabled = browser.enabled = false;
                         }
                     );
                 }
@@ -99,6 +106,7 @@ Page {
                 id: status
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width
+                text: qsTr("Syncthing is stopped")
             }
         }
     }
