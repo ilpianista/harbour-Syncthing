@@ -26,6 +26,7 @@ CoverBackground {
         interval: 10000 // 10 s
         repeat: true
         running: (status === Cover.Active)
+        triggeredOnStart: true
         onTriggered: {
             placeholder.text = getStatus();
         }

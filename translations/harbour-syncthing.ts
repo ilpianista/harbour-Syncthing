@@ -30,5 +30,9 @@
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Open in browser</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
