@@ -24,6 +24,7 @@
 
 #include "synclient.h"
 
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
@@ -32,6 +33,8 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
+#include "folder.h"
+#include "folderstats.h"
 #include "synutils.h"
 
 const static QString BASE_URL = QStringLiteral("http://localhost:8384");
@@ -39,13 +42,16 @@ const static QString BASE_URL = QStringLiteral("http://localhost:8384");
 SynClient::SynClient(QObject *parent) :
     QObject(parent)
   , network(new QNetworkAccessManager(this))
+  , m_folders()
+  , m_folderstats()
 {
-
 }
 
 SynClient::~SynClient()
 {
     delete network;
+    qDeleteAll(m_folders);
+    qDeleteAll(m_folderstats);
 }
 
 double SynClient::getUptime()
@@ -75,4 +81,75 @@ double SynClient::getUptime()
     reply->deleteLater();
 
     return uptime;
+}
+
+QList<Folder*> SynClient::getFolders()
+{
+    QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/config/folders")));
+    req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
+
+    QNetworkReply* reply = network->get(req);
+
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    getFolderStats();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
+
+        if (!json.isNull()) {
+            Q_FOREACH(const QJsonValue obj, json.array()) {
+                QJsonObject folder = obj.toObject();
+
+                Folder *f = new Folder();
+                f->setId(folder.value("id").toString());
+                f->setLabel(folder.value("label").toString());
+                f->setPath(folder.value("path").toString());
+                f->setStats(m_folderstats.value(f->id()));
+
+                m_folders.append(f);
+            }
+        }
+    }
+
+    reply->deleteLater();
+
+    return m_folders;
+}
+
+void SynClient::getFolderStats()
+{
+    QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/stats/folder")));
+    req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
+
+    QNetworkReply* reply = network->get(req);
+
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
+
+        if (!json.isNull()) {
+            QJsonObject list = json.object();
+
+            Q_FOREACH(const QString folder, list.keys()) {
+                QJsonObject folderstats = list.value(folder).toObject();
+                QJsonObject lastFile = folderstats.value("lastFile").toObject();
+
+                FolderStats *f = new FolderStats();
+                f->setLastFileAt(QDateTime::fromString(lastFile.value("at").toString(), Qt::ISODate));
+                f->setLastFileFilename(lastFile.value("filename").toString());
+                f->setLastFileDeleted(lastFile.value("deleted").toBool());
+                f->setLastScan(QDateTime::fromString(folderstats.value("lastScan").toString(), Qt::ISODate));
+
+                m_folderstats.insert(folder, f);
+            }
+        }
+    }
+
+    reply->deleteLater();
 }

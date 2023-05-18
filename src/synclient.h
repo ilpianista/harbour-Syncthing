@@ -1,9 +1,13 @@
 #ifndef SYNCLIENT_H
 #define SYNCLIENT_H
 
+#include <QMap>
 #include <QObject>
 
 class QNetworkAccessManager;
+
+class Folder;
+class FolderStats;
 
 class SynClient : public QObject
 {
@@ -14,9 +18,14 @@ public:
 
     Q_INVOKABLE double getUptime();
 
-private:
-    QNetworkAccessManager *network;
+    QList<Folder *> getFolders();
 
+private:
+    void getFolderStats();
+
+    QNetworkAccessManager *network;
+    QList<Folder *> m_folders;
+    QMap<QString, FolderStats*> m_folderstats;
 };
 
 #endif // SYNCLIENT_H

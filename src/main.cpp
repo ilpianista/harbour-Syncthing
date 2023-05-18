@@ -20,6 +20,7 @@
 
 #include <sailfishapp.h>
 
+#include "foldermodel.h"
 #include "synclient.h"
 
 int main(int argc, char *argv[])
@@ -32,6 +33,8 @@ int main(int argc, char *argv[])
 
     SynClient client;
     view->rootContext()->setContextProperty("client", &client);
+
+    qmlRegisterType<FolderModel>("harbour.syncthing", 1, 0, "FolderModel");
 
     view->setSource(SailfishApp::pathTo("qml/Syncthing.qml"));
     view->show();

@@ -19,6 +19,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
+import harbour.syncthing 1.0
 
 Page {
 
@@ -39,7 +40,6 @@ Page {
                 { 'type': 's', 'value': 'fail' }
             ],
             function(result) {
-                status.text = qsTr("Syncthing is running");
                 stop.enabled = browser.enabled = true;
                 start.enabled = false;
             },
@@ -49,9 +49,9 @@ Page {
        );
     }
 
-    SilicaFlickable {
+    SilicaListView {
+        id: list
         anchors.fill: parent
-        contentHeight: column.height
 
         PullDownMenu {
             MenuItem {
@@ -74,7 +74,6 @@ Page {
                             { 'type': 's', 'value': 'fail' }
                         ],
                         function(result) {
-                            status.text = qsTr("Syncthing is stopped");
                             start.enabled = true;
                             stop.enabled = browser.enabled = false;
                         }
@@ -93,22 +92,15 @@ Page {
             }
         }
 
-        Column {
-            id: column
-            width: parent.width
-            spacing: Theme.paddingLarge
-
-            PageHeader {
-                title: "Syncthing"
-            }
-
-            Label {
-                id: status
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width
-                text: qsTr("Syncthing is stopped")
-            }
+        header: PageHeader {
+            title: "Folders"
         }
+
+        model: FolderModel {
+            id: model
+        }
+
+        delegate: FolderDelegate {}
     }
 
     Component.onCompleted: {

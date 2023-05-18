@@ -13,15 +13,14 @@
     </message>
 </context>
 <context>
+    <name>FolderDelegate</name>
+    <message>
+        <source>Last synced file at %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainPage</name>
-    <message>
-        <source>Syncthing is running</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Syncthing is stopped</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Stop</source>
         <translation type="unfinished"></translation>
