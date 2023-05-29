@@ -47,23 +47,6 @@ BuildRequires:  desktop-file-utils
 %description
 Open Source Continuous Replication / Cluster Synchronization Thing.
 
-%if "%{?vendor}" == "chum"
-PackageName: Syncthing
-Type: desktop-application
-DeveloperName: Andrea Scarpino
-Categories:
- - Network
-Custom:
-  Repo: https://github.com/ilpianista/harbour-Syncthing
-Screenshots:
- - https://raw.githubusercontent.com/ilpianista/harbour-Syncthing/master/screenshots/screenshot_1.png
-Url:
-  Homepage: https://github.com/ilpianista/harbour-Syncthing
-  Bugtracker: https://github.com/ilpianista/harbour-Syncthing/issues
-  Donation: https://liberapay.com/ilpianista
-%endif
-
-
 %prep
 %setup -q -n %{name}-%{version}
 
