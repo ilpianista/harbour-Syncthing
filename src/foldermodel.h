@@ -38,10 +38,11 @@ public:
         IdRole = Qt::UserRole + 1,
         LabelRole = Qt::UserRole + 2,
         PathRole = Qt::UserRole + 3,
-        LastFileAtRole = Qt::UserRole + 4,
-        LastFileFilenameRole = Qt::UserRole + 5,
-        LastFileDeletedRole = Qt::UserRole + 6,
-        LastScanRole = Qt::UserRole + 7,
+        PausedRole = Qt::UserRole + 4,
+        LastFileAtRole = Qt::UserRole + 5,
+        LastFileFilenameRole = Qt::UserRole + 6,
+        LastFileDeletedRole = Qt::UserRole + 7,
+        LastScanRole = Qt::UserRole + 8,
     };
 
     explicit FolderModel(QObject *parent = 0);

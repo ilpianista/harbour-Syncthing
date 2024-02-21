@@ -41,7 +41,7 @@ Page {
             MenuItem {
                 id: browser
                 text: qsTr("Open in browser")
-                enabled: client.getHealth()
+                enabled: false
 
                 onClicked: Qt.openUrlExternally("http://localhost:8384")
             }
@@ -66,6 +66,7 @@ Page {
         onTriggered: {
             if (client.getHealth()) {
                 sleep.running = false;
+                browser.enabled = true;
                 model.getFolders();
             }
         }

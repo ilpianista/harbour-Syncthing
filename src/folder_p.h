@@ -32,6 +32,7 @@ struct FolderPrivate {
     QString id;
     QString label;
     QString path;
+    bool paused;
     FolderStats* stats;
 };
 

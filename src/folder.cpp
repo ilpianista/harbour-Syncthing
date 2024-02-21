@@ -69,6 +69,16 @@ void Folder::setPath(const QString path)
     d->path = path;
 }
 
+bool Folder::paused() const
+{
+    return d->paused;
+}
+
+void Folder::setPaused(const bool paused)
+{
+    d->paused = paused;
+}
+
 FolderStats* Folder::stats()
 {
     return d->stats;

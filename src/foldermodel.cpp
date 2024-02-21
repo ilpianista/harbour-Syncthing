@@ -53,6 +53,7 @@ QHash<int, QByteArray> FolderModel::roleNames() const {
     roles[IdRole] = "id";
     roles[LabelRole] = "label";
     roles[PathRole] = "path";
+    roles[PausedRole] = "paused";
     roles[LastFileAtRole] = "lastFileAt";
     roles[LastFileFilenameRole] = "lastFileFilename";
     roles[LastFileDeletedRole] = "lastFileDeleted";
@@ -80,6 +81,7 @@ QVariant FolderModel::data(const QModelIndex &index, int role) const {
         case IdRole: return folder->id();
         case LabelRole: return folder->label();
         case PathRole: return folder->path();
+        case PausedRole: return folder->paused();
         case LastFileAtRole: return folder->stats()->lastFileAt();
         case LastFileFilenameRole: return folder->stats()->lastFileFilename();
         case LastFileDeletedRole: return folder->stats()->lastFileDeleted();

@@ -28,33 +28,48 @@ import Sailfish.Silica 1.0
 ListItem {
     width: ListView.view.width
     height: col.height
+    contentHeight: Theme.itemSizeLarge
 
     Column {
         id: col
         x: Theme.horizontalPageMargin
         width: parent.width - Theme.horizontalPageMargin * 2
 
+        Row {
+            width: parent.width - 2 * x
+            spacing: Theme.paddingMedium
+
+            Image {
+                 id: pausedIcon
+                 height: parent.height - 2 * Theme.paddingSmall
+                 width: parent.height - 2 * Theme.paddingSmall
+                 anchors.verticalCenter: parent.verticalCenter
+                 source: "image://theme/icon-m-pause"
+                 visible: paused
+             }
+
+            Label {
+                color: Theme.primaryColor
+                width: parent.width
+                text: label
+                font.pixelSize: Theme.fontSizeMedium
+            }
+        }
+
         Label {
-            color: Theme.primaryColor
-            width: parent.width
-            text: label
-            font.pixelSize: Theme.fontSizeMedium
+            width: parent.width - 2 * x
+            color: Theme.secondaryHighlightColor
+            font.pixelSize: Theme.fontSizeSmall
+            text: path
             truncationMode: TruncationMode.Fade
             wrapMode: Text.WordWrap
         }
 
         Label {
-            width: parent.width
-            color: Theme.secondaryHighlightColor
-            font.pixelSize: Theme.fontSizeSmall
-            text: path
-        }
-
-        Label {
-            width: parent.width
+            width: parent.width - 2 * x
             color: Theme.secondaryHighlightColor
             font.pixelSize: Theme.fontSizeExtraSmall
-            text: qsTr("Last scan: %1").arg(Qt.formatDateTime(lastScan, "yyyy/MM/dd hh:mm:ss"))
+            text: paused ? "" : qsTr("Last scan: %1").arg(Qt.formatDateTime(lastScan, "yyyy/MM/dd hh:mm:ss"))
         }
     }
 }

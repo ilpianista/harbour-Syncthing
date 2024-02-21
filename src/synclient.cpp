@@ -135,6 +135,7 @@ QList<Folder*> SynClient::getFolders()
                 f->setId(folder.value("id").toString());
                 f->setLabel(folder.value("label").toString());
                 f->setPath(folder.value("path").toString());
+                f->setPaused(folder.value("paused").toBool());
                 f->setStats(m_folderstats.value(f->id()));
 
                 m_folders.append(f);

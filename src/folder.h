@@ -37,6 +37,7 @@ class Folder : public QObject
     Q_PROPERTY(QString id READ id)
     Q_PROPERTY(QString label READ label)
     Q_PROPERTY(QString path READ path)
+    Q_PROPERTY(bool paused READ paused)
     Q_PROPERTY(FolderStats* stats READ stats)
 
 public:
@@ -51,6 +52,9 @@ public:
 
     QString path() const;
     void setPath(const QString path);
+
+    bool paused() const;
+    void setPaused(const bool paused);
 
     FolderStats* stats();
     void setStats(FolderStats* stats);
