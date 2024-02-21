@@ -103,7 +103,6 @@ systemctl-user daemon-reload
 %preun
 if [ $1 -eq 0 ]; then
   systemctl-user stop syncthing.service
-  systemctl-user disable syncthing.service
 fi
 
 %postun
