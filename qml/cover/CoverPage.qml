@@ -33,7 +33,7 @@ CoverBackground {
     }
 
     function getStatus() {
-        return client.getUptime() > 0 ? qsTr("Running") : qsTr("Stopped");
+        return client.getHealth() ? qsTr("Running") : qsTr("Stopped");
     }
 
     CoverPlaceholder {

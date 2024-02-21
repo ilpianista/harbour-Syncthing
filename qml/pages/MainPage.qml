@@ -33,22 +33,6 @@ Page {
         iface: 'org.freedesktop.systemd1.Manager'
     }
 
-    function startSyncthing() {
-        systemd.typedCall('StartUnit',
-            [
-                { 'type': 's', 'value': 'syncthing.service' },
-                { 'type': 's', 'value': 'fail' }
-            ],
-            function(result) {
-                stop.enabled = browser.enabled = true;
-                start.enabled = false;
-            },
-            function(error, message) {
-                console.log("failed (" + error + ") with:", message)
-            }
-       );
-    }
-
     SilicaListView {
         id: list
         anchors.fill: parent
@@ -57,38 +41,9 @@ Page {
             MenuItem {
                 id: browser
                 text: qsTr("Open in browser")
-                enabled: client.getUptime() > 0
+                enabled: client.getHealth()
 
                 onClicked: Qt.openUrlExternally("http://localhost:8384")
-            }
-
-            MenuItem {
-                id: stop
-                text: qsTr("Stop")
-                enabled: client.getUptime() > 0
-
-                onClicked: {
-                    systemd.typedCall('StopUnit',
-                        [
-                            { 'type': 's', 'value': 'syncthing.service' },
-                            { 'type': 's', 'value': 'fail' }
-                        ],
-                        function(result) {
-                            start.enabled = true;
-                            stop.enabled = browser.enabled = false;
-                        }
-                    );
-                }
-            }
-
-            MenuItem {
-                id: start
-                text: qsTr("Start")
-                enabled: client.getUptime() === 0
-
-                onClicked: {
-                    startSyncthing();
-                }
             }
         }
 
@@ -103,7 +58,44 @@ Page {
         delegate: FolderDelegate {}
     }
 
+    Timer {
+        id: sleep
+        interval: 100
+        repeat: true
+
+        onTriggered: {
+            if (client.getHealth()) {
+                sleep.running = false;
+                model.getFolders();
+            }
+        }
+    }
+
     Component.onCompleted: {
-        startSyncthing();
+        systemd.typedCall('StartUnit',
+            [
+                { 'type': 's', 'value': 'syncthing.service' },
+                { 'type': 's', 'value': 'fail' }
+            ],
+            function(result) {
+                sleep.running = true;
+            },
+            function(error, message) {
+                console.log("failed (" + error + ") with:", message)
+            }
+       );
+    }
+
+    Component.onDestruction: {
+        systemd.typedCall('StopUnit',
+            [
+                { 'type': 's', 'value': 'syncthing.service' },
+                { 'type': 's', 'value': 'fail' }
+            ],
+            function(result) {},
+            function(error, message) {
+                console.log("failed (" + error + ") with:", message)
+            }
+        );
     }
 }

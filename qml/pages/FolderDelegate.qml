@@ -54,7 +54,7 @@ ListItem {
             width: parent.width
             color: Theme.secondaryHighlightColor
             font.pixelSize: Theme.fontSizeExtraSmall
-            text: qsTr("Last synced file at %1").arg(Qt.formatDateTime(lastFileAt, "yyyy/MM/dd hh:mm:ss"))
+            text: qsTr("Last scan: %1").arg(Qt.formatDateTime(lastScan, "yyyy/MM/dd hh:mm:ss"))
         }
     }
 }

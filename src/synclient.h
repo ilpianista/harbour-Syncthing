@@ -16,9 +16,10 @@ public:
     explicit SynClient(QObject *parent = nullptr);
     virtual ~SynClient();
 
-    Q_INVOKABLE double getUptime();
+    Q_INVOKABLE bool getHealth();
 
     QList<Folder *> getFolders();
+    double getUptime();
 
 private:
     void getFolderStats();

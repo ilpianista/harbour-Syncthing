@@ -15,20 +15,12 @@
 <context>
     <name>FolderDelegate</name>
     <message>
-        <source>Last synced file at %1</source>
+        <source>Last scan: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MainPage</name>
-    <message>
-        <source>Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Open in browser</source>
         <translation type="unfinished"></translation>

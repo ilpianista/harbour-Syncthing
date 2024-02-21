@@ -54,6 +54,34 @@ SynClient::~SynClient()
     qDeleteAll(m_folderstats);
 }
 
+bool SynClient::getHealth()
+{
+    QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/noauth/health")));
+
+    QNetworkReply* reply = network->get(req);
+
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    bool health = false;
+    if (reply->error() == QNetworkReply::NoError) {
+        QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
+
+        if (!json.isNull()) {
+            QJsonValue value = json.object().value("status");
+
+            if (!value.isNull()) {
+                health = QString::compare(QLatin1String("OK"), value.toString(), Qt::CaseInsensitive) == 0;
+            }
+        }
+    }
+
+    reply->deleteLater();
+
+    return health;
+}
+
 double SynClient::getUptime()
 {
     QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/system/status")));

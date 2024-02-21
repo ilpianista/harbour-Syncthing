@@ -24,7 +24,9 @@
 
 #include "foldermodel.h"
 
+#include <QCoreApplication>
 #include <QDebug>
+#include <QTime>
 
 #include "folder.h"
 #include "folderstats.h"
@@ -34,7 +36,6 @@ FolderModel::FolderModel(QObject *parent) :
     QAbstractListModel(parent)
   , client(new SynClient(this))
 {
-    getFolders();
 }
 
 FolderModel::~FolderModel()
