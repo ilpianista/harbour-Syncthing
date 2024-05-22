@@ -1,2 +1,7 @@
+* Wed 22 2024 Andrea Scarpino <andrea@scarpino.dev> 0.0.2-1
+- Show folders and their sync status (last scan, paused).
+- Do not start syncthing at boot, keep it running only when the UI application is running.
+- Update syncthing to 1.27.7.
+
 * Sat Feb 25 2023 Andrea Scarpino <andrea@scarpino.dev> 0.0.1-1
 - Start/stop syncthing. Show its status.
