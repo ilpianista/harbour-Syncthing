@@ -30,6 +30,7 @@
 
 class FolderPrivate;
 class FolderStats;
+class FolderStatus;
 
 class Folder : public QObject
 {
@@ -39,6 +40,7 @@ class Folder : public QObject
     Q_PROPERTY(QString path READ path)
     Q_PROPERTY(bool paused READ paused)
     Q_PROPERTY(FolderStats* stats READ stats)
+    Q_PROPERTY(FolderStatus* status READ status)
 
 public:
     explicit Folder(QObject *parent = 0);
@@ -58,6 +60,9 @@ public:
 
     FolderStats* stats();
     void setStats(FolderStats* stats);
+
+    FolderStatus* status();
+    void setStatus(FolderStatus* status);
 
 private:
     FolderPrivate *d;

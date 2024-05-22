@@ -29,12 +29,16 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QEventLoop>
+#include <QMetaEnum>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QUrl>
+#include <QUrlQuery>
 
 #include "folder.h"
 #include "folderstats.h"
+#include "folderstatus.h"
 #include "synutils.h"
 
 const static QString BASE_URL = QStringLiteral("http://localhost:8384");
@@ -113,6 +117,9 @@ double SynClient::getUptime()
 
 QList<Folder*> SynClient::getFolders()
 {
+    qDeleteAll(m_folders);
+    m_folders.clear();
+
     QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/config/folders")));
     req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
 
@@ -137,6 +144,7 @@ QList<Folder*> SynClient::getFolders()
                 f->setPath(folder.value("path").toString());
                 f->setPaused(folder.value("paused").toBool());
                 f->setStats(m_folderstats.value(f->id()));
+                f->setStatus(getFolderStatus(f->id()));
 
                 m_folders.append(f);
             }
@@ -150,6 +158,8 @@ QList<Folder*> SynClient::getFolders()
 
 void SynClient::getFolderStats()
 {
+    m_folderstats.clear();
+
     QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/stats/folder")));
     req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
 
@@ -181,4 +191,50 @@ void SynClient::getFolderStats()
     }
 
     reply->deleteLater();
+}
+
+FolderStatus* SynClient::getFolderStatus(const QString folderId)
+{
+    FolderStatus* s = new FolderStatus();
+
+    QUrl url(BASE_URL + QLatin1String("/rest/db/status"));
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("folder"), folderId);
+    url.setQuery(query);
+
+    QNetworkRequest req(url);
+    req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
+
+    QNetworkReply* reply = network->get(req);
+
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
+
+        if (!json.isNull()) {
+            QJsonObject status = json.object();
+
+            QString value = status.value("state").toString();
+
+            if (value.length() > 0) {
+                value.replace(0, 1, value.at(0).toUpper());
+
+                int dash = value.indexOf("-");
+                if (dash > 0) {
+                    value.remove("-");
+                    value.replace(dash, 1, value.at(dash).toUpper());
+                }
+
+                auto&& metaEnum = QMetaEnum::fromType<FolderStatus::FolderState>();
+                s->setState(static_cast<FolderStatus::FolderState>(metaEnum.keyToValue(value.toLocal8Bit())));
+            }
+        }
+    }
+
+    reply->deleteLater();
+
+    return s;
 }

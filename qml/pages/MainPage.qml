@@ -45,6 +45,14 @@ Page {
 
                 onClicked: Qt.openUrlExternally("http://localhost:8384")
             }
+
+            MenuItem {
+                id: refreshFolders
+                text: qsTr("Refresh folders list")
+                enabled: false
+
+                onClicked: model.getFolders()
+            }
         }
 
         header: PageHeader {
@@ -66,7 +74,7 @@ Page {
         onTriggered: {
             if (client.getHealth()) {
                 sleep.running = false;
-                browser.enabled = true;
+                browser.enabled = refreshFolders.enabled = true;
                 model.getFolders();
             }
         }

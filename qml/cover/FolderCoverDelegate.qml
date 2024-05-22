@@ -26,17 +26,20 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 ListItem {
-    width: ListView.view.width
-    height: col.height
-    contentHeight: Theme.itemSizeLarge
+    contentHeight: Theme.itemSizeExtraSmall
 
     Column {
-        id: col
-        x: Theme.horizontalPageMargin
-        width: parent.width - Theme.horizontalPageMargin * 2
+        anchors {
+            top: parent.top
+            topMargin: Theme.paddingLarge
+            left: parent.left
+            leftMargin: Theme.paddingLarge
+        }
+        width: parent.width
+        spacing: Theme.paddingSmall
 
         Row {
-            width: parent.width - 2 * x
+            width: parent.width - x
             spacing: Theme.paddingMedium
 
             Image {
@@ -52,32 +55,15 @@ ListItem {
                 color: Theme.primaryColor
                 width: parent.width
                 text: label
-                font.pixelSize: Theme.fontSizeMedium
-            }
-
-            Label {
-                color: Theme.primaryColor
-                width: parent.width
-                text: folderStatus
-                font.pixelSize: Theme.fontSizeExtraSmall
-                horizontalAlignment: Text.AlignRight
+                font.pixelSize: Theme.fontSizeSmall
             }
         }
 
         Label {
-            width: parent.width - 2 * x
             color: Theme.secondaryColor
-            font.pixelSize: Theme.fontSizeSmall
-            text: path
-            truncationMode: TruncationMode.Fade
-            wrapMode: Text.WordWrap
-        }
-
-        Label {
-            width: parent.width - 2 * x
-            color: Theme.secondaryHighlightColor
+            width: parent.width - x
+            text: paused ? "" : Qt.formatDateTime(lastScan, "yyyy/MM/dd hh:mm:ss")
             font.pixelSize: Theme.fontSizeExtraSmall
-            text: paused ? "" : qsTr("Last scan: %1").arg(Qt.formatDateTime(lastScan, "yyyy/MM/dd hh:mm:ss"))
         }
     }
 }

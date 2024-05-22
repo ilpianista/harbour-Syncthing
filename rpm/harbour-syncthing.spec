@@ -51,8 +51,8 @@ Open Source Continuous Replication / Cluster Synchronization Thing.
 %setup -q -n %{name}-%{version}
 
 #%setup -a 1 doesn't work in mb2
-if [ ! -d %{syncthing_dir} ]; then
-  tar xf %{SOURCE1}
+if [ ! -d %{_sourcedir}/%{syncthing_dir} ]; then
+  tar xf %{SOURCE1} -C %{_sourcedir}
 fi
 
 # >> setup
@@ -79,7 +79,7 @@ rm -rf %{buildroot}
 install -d %{buildroot}%{_userunitdir}
 install -m644 %{SOURCE2} %{buildroot}%{_userunitdir}
 
-install -m755 %{syncthing_dir}/syncthing %{buildroot}%{_bindir}
+install -m755 %{_sourcedir}/%{syncthing_dir}/syncthing %{buildroot}%{_bindir}
 # << install post
 
 desktop-file-install --delete-original       \

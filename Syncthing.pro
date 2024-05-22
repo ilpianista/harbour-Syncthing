@@ -6,12 +6,14 @@ SOURCES += \
     src/folder.cpp \
     src/foldermodel.cpp \
     src/folderstats.cpp \
+    src/folderstatus.cpp \
     src/main.cpp \
     src/synclient.cpp \
     src/synutils.cpp
 
 OTHER_FILES += \
     qml/cover/CoverPage.qml \
+    qml/cover/FolderCoverDelegate.qml \
     qml/pages/FolderDelegate.qml \
     qml/pages/MainPage.qml \
     qml/Syncthing.qml \
@@ -31,6 +33,8 @@ HEADERS += \
     src/foldermodel.h \
     src/folderstats.h \
     src/folderstats_p.h \
+    src/folderstatus.h \
+    src/folderstatus_p.h \
     src/synclient.h \
     src/synutils.h
 

@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2021 Andrea Scarpino <andrea@scarpino.dev>
+  Copyright (c) 2024 Andrea Scarpino <andrea@scarpino.dev>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -22,81 +22,26 @@
   SOFTWARE.
 */
 
-#include "folder.h"
-#include "folderstats.h"
+#include "folderstatus.h"
 
-#include "folder_p.h"
+#include "folderstatus_p.h"
 
-Folder::Folder(QObject *parent) : QObject(parent)
-  , d(new FolderPrivate)
+FolderStatus::FolderStatus(QObject *parent) : QObject(parent)
+  , d(new FolderStatusPrivate)
 {
-    d->stats = new FolderStats(this);
-    d->status = new FolderStatus(this);
 }
 
-Folder::~Folder()
+FolderStatus::~FolderStatus()
 {
-    delete d->stats;
-    delete d->status;
     delete d;
 }
 
-QString Folder::id() const
+FolderStatus::FolderState FolderStatus::state() const
 {
-    return d->id;
+    return d->state;
 }
 
-void Folder::setId(const QString id)
+void FolderStatus::setState(const FolderState state)
 {
-    d->id = id;
-}
-
-QString Folder::label() const
-{
-    return d->label;
-}
-
-void Folder::setLabel(const QString label)
-{
-    d->label = label;
-}
-
-QString Folder::path() const
-{
-    return d->path;
-}
-
-void Folder::setPath(const QString path)
-{
-    d->path = path;
-}
-
-bool Folder::paused() const
-{
-    return d->paused;
-}
-
-void Folder::setPaused(const bool paused)
-{
-    d->paused = paused;
-}
-
-FolderStats* Folder::stats()
-{
-    return d->stats;
-}
-
-void Folder::setStats(FolderStats* stats)
-{
-    d->stats = stats;
-}
-
-FolderStatus* Folder::status()
-{
-    return d->status;
-}
-
-void Folder::setStatus(FolderStatus* status)
-{
-    d->status = status;
+    d->state = state;
 }

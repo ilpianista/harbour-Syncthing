@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2021 Andrea Scarpino <andrea@scarpino.dev>
+  Copyright (c) 2024 Andrea Scarpino <andrea@scarpino.dev>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -22,20 +22,13 @@
   SOFTWARE.
 */
 
-#ifndef FOLDER_PRIVATE_H
-#define FOLDER_PRIVATE_H
+#ifndef FOLDERSTATUS_PRIVATE_H
+#define FOLDERSTATUS_PRIVATE_H
 
-#include "folder.h"
-#include "folderstats.h"
 #include "folderstatus.h"
 
-struct FolderPrivate {
-    QString id;
-    QString label;
-    QString path;
-    bool paused;
-    FolderStats* stats;
-    FolderStatus* status;
+struct FolderStatusPrivate {
+    FolderStatus::FolderState state;
 };
 
-#endif // FOLDER_PRIVATE_H
+#endif // FOLDERSTATUS_PRIVATE_H

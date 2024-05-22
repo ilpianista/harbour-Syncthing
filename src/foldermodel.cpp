@@ -30,6 +30,7 @@
 
 #include "folder.h"
 #include "folderstats.h"
+#include "folderstatus.h"
 #include "synclient.h"
 
 FolderModel::FolderModel(QObject *parent) :
@@ -58,17 +59,22 @@ QHash<int, QByteArray> FolderModel::roleNames() const {
     roles[LastFileFilenameRole] = "lastFileFilename";
     roles[LastFileDeletedRole] = "lastFileDeleted";
     roles[LastScanRole] = "lastScan";
+    roles[FolderStatus] = "folderStatus";
     return roles;
 }
 
 void FolderModel::getFolders()
 {
+    beginResetModel();
+    if (!backing.isEmpty()) {
+        backing.clear();
+    }
+
     Q_FOREACH(Folder *f, client->getFolders()) {
-        beginInsertRows(QModelIndex(), backing.size(), backing.size());
         qDebug() << "Adding" << f->path();
         backing.append(f);
-        endInsertRows();
     }
+    endResetModel();
 }
 
 QVariant FolderModel::data(const QModelIndex &index, int role) const {
@@ -86,6 +92,7 @@ QVariant FolderModel::data(const QModelIndex &index, int role) const {
         case LastFileFilenameRole: return folder->stats()->lastFileFilename();
         case LastFileDeletedRole: return folder->stats()->lastFileDeleted();
         case LastScanRole: return folder->stats()->lastScan();
+        case FolderStatus: return folder->status()->state();
         default: qCritical() << "Unrecognized role" << role;
     }
 

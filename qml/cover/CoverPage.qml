@@ -18,27 +18,40 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import harbour.syncthing 1.0
 
 CoverBackground {
 
-    Timer {
-        id: coverTimer
-        interval: 10000 // 10 s
-        repeat: true
-        running: (status === Cover.Active)
-        triggeredOnStart: true
-        onTriggered: {
-            placeholder.text = getStatus();
+    CoverPlaceholder {
+        id: placeholder
+        text: "Syncthing"
+        icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-syncthing.png"
+
+        visible: folders.count == 0
+    }
+
+    SilicaListView {
+        id: folders
+
+        anchors.fill: parent
+        width: parent.width
+
+        visible: folders.count > 0
+
+        model: FolderModel {
+            id: model
+        }
+
+        delegate: FolderCoverDelegate {}
+    }
+
+    CoverActionList {
+        CoverAction {
+            iconSource: "image://theme/icon-cover-sync"
+            onTriggered: function() {
+                model.getFolders();
+            }
         }
     }
 
-    function getStatus() {
-        return client.getHealth() ? qsTr("Running") : qsTr("Stopped");
-    }
-
-    CoverPlaceholder {
-        id: placeholder
-        text: getStatus()
-        icon.source: "/usr/share/icons/hicolor/86x86/apps/harbour-syncthing.png"
-    }
 }

@@ -43,6 +43,7 @@ public:
         LastFileFilenameRole = Qt::UserRole + 6,
         LastFileDeletedRole = Qt::UserRole + 7,
         LastScanRole = Qt::UserRole + 8,
+        FolderStatus = Qt::UserRole + 9,
     };
 
     explicit FolderModel(QObject *parent = 0);

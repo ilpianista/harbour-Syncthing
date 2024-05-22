@@ -8,6 +8,7 @@ class QNetworkAccessManager;
 
 class Folder;
 class FolderStats;
+class FolderStatus;
 
 class SynClient : public QObject
 {
@@ -22,6 +23,7 @@ public:
     double getUptime();
 
 private:
+    FolderStatus* getFolderStatus(const QString folderId);
     void getFolderStats();
 
     QNetworkAccessManager *network;

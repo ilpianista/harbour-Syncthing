@@ -1,7 +1,7 @@
 /*
   The MIT License (MIT)
 
-  Copyright (c) 2021 Andrea Scarpino <andrea@scarpino.dev>
+  Copyright (c) 2024 Andrea Scarpino <andrea@scarpino.dev>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -22,81 +22,43 @@
   SOFTWARE.
 */
 
-#include "folder.h"
-#include "folderstats.h"
+#ifndef FOLDERSTATUS_H
+#define FOLDERSTATUS_H
 
-#include "folder_p.h"
+#include <QObject>
+#include <QString>
 
-Folder::Folder(QObject *parent) : QObject(parent)
-  , d(new FolderPrivate)
+class FolderStatusPrivate;
+
+class FolderStatus : public QObject
 {
-    d->stats = new FolderStats(this);
-    d->status = new FolderStatus(this);
-}
+    Q_OBJECT
+    Q_PROPERTY(FolderState state READ state)
 
-Folder::~Folder()
-{
-    delete d->stats;
-    delete d->status;
-    delete d;
-}
+public:
+    enum FolderState {
+        Idle,
+        Scanning,
+        ScanWaiting,
+        SyncWaiting,
+        SyncPreparing,
+        Syncing,
+        Cleaning,
+        CleanWaiting,
+        Error,
+        Unknown
+    };
+    Q_ENUM(FolderState)
 
-QString Folder::id() const
-{
-    return d->id;
-}
+    explicit FolderStatus(QObject *parent = 0);
+    virtual ~FolderStatus();
 
-void Folder::setId(const QString id)
-{
-    d->id = id;
-}
+    FolderState state() const;
+    void setState(const FolderState state);
 
-QString Folder::label() const
-{
-    return d->label;
-}
+private:
+    FolderStatusPrivate *d;
 
-void Folder::setLabel(const QString label)
-{
-    d->label = label;
-}
+};
 
-QString Folder::path() const
-{
-    return d->path;
-}
-
-void Folder::setPath(const QString path)
-{
-    d->path = path;
-}
-
-bool Folder::paused() const
-{
-    return d->paused;
-}
-
-void Folder::setPaused(const bool paused)
-{
-    d->paused = paused;
-}
-
-FolderStats* Folder::stats()
-{
-    return d->stats;
-}
-
-void Folder::setStats(FolderStats* stats)
-{
-    d->stats = stats;
-}
-
-FolderStatus* Folder::status()
-{
-    return d->status;
-}
-
-void Folder::setStatus(FolderStatus* status)
-{
-    d->status = status;
-}
+#endif // FOLDERSTATUS_H
