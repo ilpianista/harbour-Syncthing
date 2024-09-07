@@ -11,3 +11,4 @@ Comment=Continuous Replication Synchronization Thing
 Permissions=Internet;AppLaunch
 OrganizationName=dev.scarpino
 ApplicationName=harbour-syncthing
+Sandboxing=Disabled
