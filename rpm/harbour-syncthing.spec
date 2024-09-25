@@ -11,7 +11,7 @@ Name:       harbour-syncthing
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Syncthing
 Version:    0.0.2
-Release:    1
+Release:    2
 Group:      Qt/Qt
 License:    GPLv3
 URL:        https://scarpino.dev
