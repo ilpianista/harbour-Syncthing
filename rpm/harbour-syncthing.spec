@@ -2,7 +2,7 @@ Name:       harbour-syncthing
 
 # >> macros
 %global _missing_build_ids_terminate_build 0
-%define syncthing_version 1.27.7
+%define syncthing_version 1.27.9
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -11,7 +11,7 @@ Name:       harbour-syncthing
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Syncthing
 Version:    0.0.2
-Release:    2
+Release:    3
 Group:      Qt/Qt
 License:    GPLv3
 URL:        https://scarpino.dev
