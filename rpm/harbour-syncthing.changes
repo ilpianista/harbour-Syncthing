@@ -1,3 +1,9 @@
+* Oct 7 2024 Charles Gueunet <charles.gueunet@gmail.com> 0.0.2-3
+- Update syncthing to 1.27.9.
+
+* Sept 24 2024 Charles Gueunet <charles.gueunet@gmail.com> 0.0.2-2
+- Add permission to r/w on any folders for sailfish >= 4.6.0.13.
+
 * Wed 22 2024 Andrea Scarpino <andrea@scarpino.dev> 0.0.2-1
 - Show folders and their sync status (last scan, paused).
 - Do not start syncthing at boot, keep it running only when the UI application is running.
