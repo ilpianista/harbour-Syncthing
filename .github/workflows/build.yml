@@ -11,8 +11,8 @@ on:
       - master
 
 env:
-  RELEASE: 4.5.0.16
-  SYNCTHING_VERSION: 1.27.9
+  RELEASE: 4.6.0.13
+  SYNCTHING_VERSION: 1.30.0
 
 jobs:
   build:
