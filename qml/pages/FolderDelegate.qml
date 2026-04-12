@@ -1,3 +1,5 @@
+
+
 /*
   The MIT License (MIT)
 
@@ -21,11 +23,12 @@
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 */
-
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 ListItem {
+    id: listItem
+
     width: ListView.view.width
     height: col.height
     contentHeight: Theme.itemSizeLarge
@@ -40,23 +43,23 @@ ListItem {
             spacing: Theme.paddingMedium
 
             Image {
-                 id: pausedIcon
-                 height: parent.height - 2 * Theme.paddingSmall
-                 width: parent.height - 2 * Theme.paddingSmall
-                 anchors.verticalCenter: parent.verticalCenter
-                 source: "image://theme/icon-m-pause"
-                 visible: paused
-             }
+                id: pausedIcon
+                height: parent.height - 2 * Theme.paddingSmall
+                width: parent.height - 2 * Theme.paddingSmall
+                anchors.verticalCenter: parent.verticalCenter
+                source: "image://theme/icon-m-pause"
+                visible: paused
+            }
 
             Label {
-                color: Theme.primaryColor
+                color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor
                 width: parent.width
                 text: label
                 font.pixelSize: Theme.fontSizeMedium
             }
 
             Label {
-                color: Theme.primaryColor
+                color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor
                 width: parent.width
                 text: folderStatus
                 font.pixelSize: Theme.fontSizeExtraSmall
@@ -66,7 +69,7 @@ ListItem {
 
         Label {
             width: parent.width - 2 * x
-            color: Theme.secondaryColor
+            color: listItem.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
             font.pixelSize: Theme.fontSizeSmall
             text: path
             truncationMode: TruncationMode.Fade
@@ -75,9 +78,11 @@ ListItem {
 
         Label {
             width: parent.width - 2 * x
-            color: Theme.secondaryHighlightColor
+            color: listItem.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
             font.pixelSize: Theme.fontSizeExtraSmall
-            text: paused ? "" : qsTr("Last scan: %1").arg(Qt.formatDateTime(lastScan, "yyyy/MM/dd hh:mm:ss"))
+            text: paused ? "" : qsTr("Last scan: %1").arg(
+                               Qt.formatDateTime(lastScan,
+                                                 "yyyy/MM/dd hh:mm:ss"))
         }
     }
 }

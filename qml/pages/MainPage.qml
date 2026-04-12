@@ -1,3 +1,5 @@
+
+
 /*
     Copyright (C) 2021-2023 Andrea Scarpino <andrea@scarpino.dev>
     All rights reserved.
@@ -15,7 +17,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
@@ -55,6 +56,14 @@ Page {
             }
         }
 
+        VerticalScrollDecorator {}
+
+        ViewPlaceholder {
+            enabled: list.count == 0
+            text: qsTr("No folders")
+            hintText: qsTr("Pull down to refresh list")
+        }
+
         header: PageHeader {
             title: "Folders"
         }
@@ -73,38 +82,39 @@ Page {
 
         onTriggered: {
             if (client.getHealth()) {
-                sleep.running = false;
-                browser.enabled = refreshFolders.enabled = true;
-                model.getFolders();
+                sleep.running = false
+                browser.enabled = refreshFolders.enabled = true
+                model.getFolders()
             }
         }
     }
 
     Component.onCompleted: {
-        systemd.typedCall('StartUnit',
-            [
-                { 'type': 's', 'value': 'syncthing.service' },
-                { 'type': 's', 'value': 'fail' }
-            ],
-            function(result) {
-                sleep.running = true;
-            },
-            function(error, message) {
-                console.log("failed (" + error + ") with:", message)
-            }
-       );
+        systemd.typedCall('StartUnit', [{
+                                            "type": 's',
+                                            "value": 'syncthing.service'
+                                        }, {
+                                            "type": 's',
+                                            "value": 'fail'
+                                        }], function (result) {
+                                            sleep.running = true
+                                        }, function (error, message) {
+                                            console.log("failed (" + error + ") with:",
+                                                        message)
+                                        })
     }
 
     Component.onDestruction: {
-        systemd.typedCall('StopUnit',
-            [
-                { 'type': 's', 'value': 'syncthing.service' },
-                { 'type': 's', 'value': 'fail' }
-            ],
-            function(result) {},
-            function(error, message) {
-                console.log("failed (" + error + ") with:", message)
-            }
-        );
+        systemd.typedCall('StopUnit', [{
+                                           "type": 's',
+                                           "value": 'syncthing.service'
+                                       }, {
+                                           "type": 's',
+                                           "value": 'fail'
+                                       }], function (result) {},
+                                       function (error, message) {
+                                           console.log("failed (" + error + ") with:",
+                                                       message)
+                                       })
     }
 }

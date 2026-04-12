@@ -5,3 +5,4 @@
 RPMS
 
 rpm/*.tar.gz
+rpm/syncthing-linux-*/

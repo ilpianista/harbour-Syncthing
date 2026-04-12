@@ -18,5 +18,13 @@
         <source>Refresh folders list</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to refresh list</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

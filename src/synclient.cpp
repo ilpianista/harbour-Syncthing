@@ -40,6 +40,7 @@
 #include "folderstats.h"
 #include "folderstatus.h"
 #include "synutils.h"
+#include "folder.h"
 
 const static QString BASE_URL = QStringLiteral("http://localhost:8384");
 
