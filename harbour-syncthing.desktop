@@ -7,6 +7,9 @@ Exec=harbour-syncthing
 Name=Syncthing
 Comment=Continuous Replication Synchronization Thing
 
+[X-HarbourBackup]
+BackupPathList=.config/dev.scarpino/harbour-syncthing/
+
 [X-Sailjail]
 Permissions=Internet;AppLaunch;Privileged
 OrganizationName=dev.scarpino
