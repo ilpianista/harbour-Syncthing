@@ -99,6 +99,9 @@ desktop-file-install --delete-original       \
 
 %post
 systemctl-user daemon-reload
+if [ $1 == 2 ]; then
+  systemctl-user try-restart syncthing.service
+fi
 
 %preun
 if [ $1 -eq 0 ]; then
