@@ -5,6 +5,8 @@ StartLimitIntervalSec=60
 StartLimitBurst=4
 
 [Service]
+Environment=STNOUPGRADE=1
+Environment=STNODEFAULTFOLDER=1
 ExecStart=/usr/bin/syncthing serve --no-browser --no-restart --logflags=0 --home=%h/.config/dev.scarpino/harbour-syncthing/syncthing
 Restart=on-failure
 RestartSec=1
