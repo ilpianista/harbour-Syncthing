@@ -5,26 +5,26 @@
     <name>FolderDelegate</name>
     <message>
         <source>Last scan: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimane skaneerimine: %1</translation>
     </message>
 </context>
 <context>
     <name>MainPage</name>
     <message>
         <source>Open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Ava veebibrauseris</translation>
     </message>
     <message>
         <source>Refresh folders list</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi kaustade loend uuesti</translation>
     </message>
     <message>
         <source>No folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaustu pole</translation>
     </message>
     <message>
         <source>Pull down to refresh list</source>
-        <translation type="unfinished"></translation>
+        <translation>Loendi uuendamiseks viipa ülalt alla</translation>
     </message>
 </context>
 </TS>
