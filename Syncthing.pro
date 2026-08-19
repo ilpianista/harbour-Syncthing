@@ -25,7 +25,10 @@ OTHER_FILES += \
 
 CONFIG += sailfishapp_i18n
 TRANSLATIONS += \
-    translations/harbour-syncthing-it.ts
+    translations/harbour-syncthing-et.ts \
+    translations/harbour-syncthing-it.ts \
+    translations/harbour-syncthing-nb_NO.ts \
+    translations/harbour-syncthing-sv.ts
 
 HEADERS += \
     src/folder.h \
