@@ -21,6 +21,7 @@ import Sailfish.Silica 1.0
 import harbour.syncthing 1.0
 
 CoverBackground {
+    id: cover
 
     CoverPlaceholder {
         id: placeholder
@@ -45,13 +46,26 @@ CoverBackground {
         delegate: FolderCoverDelegate {}
     }
 
+    Timer {
+        id: refresh
+        interval: 30000
+        repeat: true
+        running: cover.status === Cover.Active
+
+        onTriggered: model.getFolders()
+    }
+
+    onStatusChanged: {
+        if (status === Cover.Active)
+            model.getFolders()
+    }
+
     CoverActionList {
         CoverAction {
             iconSource: "image://theme/icon-cover-sync"
-            onTriggered: function() {
-                model.getFolders();
+            onTriggered: function () {
+                model.getFolders()
             }
         }
     }
-
 }

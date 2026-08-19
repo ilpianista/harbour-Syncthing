@@ -71,7 +71,7 @@ void FolderModel::getFolders()
     }
 
     Q_FOREACH(Folder *f, client->getFolders()) {
-        qDebug() << "Adding" << f->path();
+        //qDebug() << "Adding" << f->path();
         backing.append(f);
     }
     endResetModel();

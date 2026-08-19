@@ -76,6 +76,14 @@ Page {
     }
 
     Timer {
+        id: refresh
+        interval: 30000
+        repeat: true
+
+        onTriggered: model.getFolders()
+    }
+
+    Timer {
         id: sleep
         interval: 100
         repeat: true
@@ -85,6 +93,7 @@ Page {
                 sleep.running = false
                 browser.enabled = refreshFolders.enabled = true
                 model.getFolders()
+                refresh.running = true
             }
         }
     }
