@@ -47,16 +47,12 @@ const static QString BASE_URL = QStringLiteral("http://localhost:8384");
 SynClient::SynClient(QObject *parent) :
     QObject(parent)
   , network(new QNetworkAccessManager(this))
-  , m_folders()
-  , m_folderstats()
 {
 }
 
 SynClient::~SynClient()
 {
     delete network;
-    qDeleteAll(m_folders);
-    qDeleteAll(m_folderstats);
 }
 
 bool SynClient::getHealth()
@@ -118,8 +114,7 @@ double SynClient::getUptime()
 
 QList<Folder*> SynClient::getFolders()
 {
-    qDeleteAll(m_folders);
-    m_folders.clear();
+    QList<Folder*> folders;
 
     QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/config/folders")));
     req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
@@ -130,7 +125,7 @@ QList<Folder*> SynClient::getFolders()
     connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-    getFolderStats();
+    QMap<QString, FolderStats*> folderstats = getFolderStats();
 
     if (reply->error() == QNetworkReply::NoError) {
         QJsonDocument json = QJsonDocument::fromJson(reply->readAll());
@@ -144,22 +139,27 @@ QList<Folder*> SynClient::getFolders()
                 f->setLabel(folder.value("label").toString());
                 f->setPath(folder.value("path").toString());
                 f->setPaused(folder.value("paused").toBool());
-                f->setStats(m_folderstats.value(f->id()));
+                FolderStats *stats = folderstats.take(f->id());
+                if (stats) {
+                    f->setStats(stats);
+                }
                 f->setStatus(getFolderStatus(f->id()));
 
-                m_folders.append(f);
+                folders.append(f);
             }
         }
     }
 
+    qDeleteAll(folderstats);
+
     reply->deleteLater();
 
-    return m_folders;
+    return folders;
 }
 
-void SynClient::getFolderStats()
+QMap<QString, FolderStats*> SynClient::getFolderStats()
 {
-    m_folderstats.clear();
+    QMap<QString, FolderStats*> folderstats;
 
     QNetworkRequest req(QUrl(BASE_URL + QLatin1String("/rest/stats/folder")));
     req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
@@ -177,21 +177,23 @@ void SynClient::getFolderStats()
             QJsonObject list = json.object();
 
             Q_FOREACH(const QString folder, list.keys()) {
-                QJsonObject folderstats = list.value(folder).toObject();
-                QJsonObject lastFile = folderstats.value("lastFile").toObject();
+                QJsonObject folderstatsObj = list.value(folder).toObject();
+                QJsonObject lastFile = folderstatsObj.value("lastFile").toObject();
 
                 FolderStats *f = new FolderStats();
                 f->setLastFileAt(QDateTime::fromString(lastFile.value("at").toString(), Qt::ISODate));
                 f->setLastFileFilename(lastFile.value("filename").toString());
                 f->setLastFileDeleted(lastFile.value("deleted").toBool());
-                f->setLastScan(QDateTime::fromString(folderstats.value("lastScan").toString(), Qt::ISODate));
+                f->setLastScan(QDateTime::fromString(folderstatsObj.value("lastScan").toString(), Qt::ISODate));
 
-                m_folderstats.insert(folder, f);
+                folderstats.insert(folder, f);
             }
         }
     }
 
     reply->deleteLater();
+
+    return folderstats;
 }
 
 FolderStatus* SynClient::getFolderStatus(const QString folderId)

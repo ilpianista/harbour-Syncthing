@@ -36,6 +36,7 @@
 FolderModel::FolderModel(QObject *parent) :
     QAbstractListModel(parent)
   , client(new SynClient(this))
+  , m_loading(false)
 {
 }
 
@@ -65,16 +66,24 @@ QHash<int, QByteArray> FolderModel::roleNames() const {
 
 void FolderModel::getFolders()
 {
-    beginResetModel();
-    if (!backing.isEmpty()) {
-        backing.clear();
+    if (m_loading) {
+        return;
     }
+    m_loading = true;
 
-    Q_FOREACH(Folder *f, client->getFolders()) {
+    QList<Folder *> folders = client->getFolders();
+
+    beginResetModel();
+    qDeleteAll(backing);
+    backing.clear();
+    backing.reserve(folders.size());
+    Q_FOREACH(Folder *f, folders) {
         //qDebug() << "Adding" << f->path();
         backing.append(f);
     }
     endResetModel();
+
+    m_loading = false;
 }
 
 QVariant FolderModel::data(const QModelIndex &index, int role) const {

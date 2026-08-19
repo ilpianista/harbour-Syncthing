@@ -88,6 +88,7 @@ FolderStats* Folder::stats()
 
 void Folder::setStats(FolderStats* stats)
 {
+    delete d->stats;
     d->stats = stats;
 }
 
@@ -98,5 +99,6 @@ FolderStatus* Folder::status()
 
 void Folder::setStatus(FolderStatus* status)
 {
+    delete d->status;
     d->status = status;
 }

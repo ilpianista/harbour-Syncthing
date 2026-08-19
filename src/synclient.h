@@ -24,11 +24,9 @@ public:
 
 private:
     FolderStatus* getFolderStatus(const QString folderId);
-    void getFolderStats();
+    QMap<QString, FolderStats*> getFolderStats();
 
     QNetworkAccessManager *network;
-    QList<Folder *> m_folders;
-    QMap<QString, FolderStats*> m_folderstats;
 };
 
 #endif // SYNCLIENT_H

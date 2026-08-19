@@ -59,6 +59,7 @@ public:
 private:
     QVector<Folder*> backing;
     SynClient *client;
+    bool m_loading;
 };
 
 #endif // FOLDERMODEL_H
