@@ -12,19 +12,19 @@
     <name>MainPage</name>
     <message>
         <source>Open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Otvoriť v prehliadači</translation>
     </message>
     <message>
         <source>Refresh folders list</source>
-        <translation type="unfinished"></translation>
+        <translation>Obnoviť zoznam zložiek</translation>
     </message>
     <message>
         <source>No folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Žiadne zložky</translation>
     </message>
     <message>
         <source>Pull down to refresh list</source>
-        <translation type="unfinished"></translation>
+        <translation>Potiahnite nadol pre obnovenie zoznamu</translation>
     </message>
 </context>
 </TS>
