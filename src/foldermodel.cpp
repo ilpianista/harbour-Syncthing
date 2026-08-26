@@ -60,7 +60,7 @@ QHash<int, QByteArray> FolderModel::roleNames() const {
     roles[LastFileFilenameRole] = "lastFileFilename";
     roles[LastFileDeletedRole] = "lastFileDeleted";
     roles[LastScanRole] = "lastScan";
-    roles[FolderStatus] = "folderStatus";
+    roles[FolderStatusTextRole] = "folderStatusText";
     return roles;
 }
 
@@ -101,7 +101,7 @@ QVariant FolderModel::data(const QModelIndex &index, int role) const {
         case LastFileFilenameRole: return folder->stats()->lastFileFilename();
         case LastFileDeletedRole: return folder->stats()->lastFileDeleted();
         case LastScanRole: return folder->stats()->lastScan();
-        case FolderStatus: return folder->status()->state();
+        case FolderStatusTextRole: return folder->status()->stateString();
         default: qCritical() << "Unrecognized role" << role;
     }
 

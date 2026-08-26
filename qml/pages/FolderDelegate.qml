@@ -33,6 +33,27 @@ ListItem {
     height: col.height
     contentHeight: Theme.itemSizeLarge
 
+    property string stateIcon: {
+        switch (folderStatusText) {
+        case "Scanning":
+        case "ScanWaiting":
+            return "image://theme/icon-m-search"
+        case "SyncWaiting":
+        case "SyncPreparing":
+        case "Syncing":
+            return "image://theme/icon-m-sync"
+        case "Cleaning":
+        case "CleanWaiting":
+            return "image://theme/icon-m-delete"
+        case "Error":
+            return "image://theme/icon-m-warning"
+        case "Idle":
+            return "image://theme/icon-m-acknowledge"
+        default:
+            return ""
+        }
+    }
+
     Column {
         id: col
         x: Theme.horizontalPageMargin
@@ -43,12 +64,12 @@ ListItem {
             spacing: Theme.paddingMedium
 
             Image {
-                id: pausedIcon
+                id: statusIcon
                 height: parent.height - 2 * Theme.paddingSmall
                 width: parent.height - 2 * Theme.paddingSmall
                 anchors.verticalCenter: parent.verticalCenter
-                source: "image://theme/icon-m-pause"
-                visible: paused
+                source: paused ? "image://theme/icon-m-pause" : stateIcon
+                visible: paused || stateIcon != ""
             }
 
             Label {
@@ -56,14 +77,6 @@ ListItem {
                 width: parent.width
                 text: label
                 font.pixelSize: Theme.fontSizeMedium
-            }
-
-            Label {
-                color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor
-                width: parent.width
-                text: folderStatus
-                font.pixelSize: Theme.fontSizeExtraSmall
-                horizontalAlignment: Text.AlignRight
             }
         }
 

@@ -28,6 +28,27 @@ import Sailfish.Silica 1.0
 ListItem {
     contentHeight: Theme.itemSizeExtraSmall
 
+    property string stateIcon: {
+        switch (folderStatusText) {
+        case "Scanning":
+        case "ScanWaiting":
+            return "image://theme/icon-m-search"
+        case "SyncWaiting":
+        case "SyncPreparing":
+        case "Syncing":
+            return "image://theme/icon-m-sync"
+        case "Cleaning":
+        case "CleanWaiting":
+            return "image://theme/icon-m-delete"
+        case "Error":
+            return "image://theme/icon-m-warning"
+        case "Idle":
+            return "image://theme/icon-m-acknowledge"
+        default:
+            return ""
+        }
+    }
+
     Column {
         anchors {
             top: parent.top
@@ -43,13 +64,13 @@ ListItem {
             spacing: Theme.paddingMedium
 
             Image {
-                 id: pausedIcon
-                 height: parent.height - 2 * Theme.paddingSmall
-                 width: parent.height - 2 * Theme.paddingSmall
-                 anchors.verticalCenter: parent.verticalCenter
-                 source: "image://theme/icon-m-pause"
-                 visible: paused
-             }
+                id: statusIcon
+                height: parent.height - 2 * Theme.paddingSmall
+                width: parent.height - 2 * Theme.paddingSmall
+                anchors.verticalCenter: parent.verticalCenter
+                source: paused ? "image://theme/icon-m-pause" : stateIcon
+                visible: paused || stateIcon != ""
+            }
 
             Label {
                 color: Theme.primaryColor

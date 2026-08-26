@@ -20,7 +20,6 @@ public:
     Q_INVOKABLE bool getHealth();
 
     QList<Folder *> getFolders();
-    double getUptime();
 
 private:
     FolderStatus* getFolderStatus(const QString folderId);
