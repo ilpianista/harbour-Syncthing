@@ -83,6 +83,16 @@ Page {
         onTriggered: model.getFolders()
     }
 
+    Connections {
+        target: Qt.application
+        onStateChanged: {
+            if (Qt.application.state === Qt.ApplicationActive) {
+                refresh.restart()
+                model.getFolders()
+            }
+        }
+    }
+
     Timer {
         id: sleep
         interval: 100
