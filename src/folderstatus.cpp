@@ -24,11 +24,14 @@
 
 #include "folderstatus.h"
 
+#include <QMetaEnum>
+
 #include "folderstatus_p.h"
 
 FolderStatus::FolderStatus(QObject *parent) : QObject(parent)
   , d(new FolderStatusPrivate)
 {
+    d->state = Unknown;
 }
 
 FolderStatus::~FolderStatus()
@@ -36,12 +39,14 @@ FolderStatus::~FolderStatus()
     delete d;
 }
 
-FolderStatus::FolderState FolderStatus::state() const
-{
-    return d->state;
-}
-
 void FolderStatus::setState(const FolderState state)
 {
     d->state = state;
+}
+
+QString FolderStatus::stateString() const
+{
+    const QMetaEnum metaEnum = QMetaEnum::fromType<FolderState>();
+    const char *key = metaEnum.valueToKey(d->state);
+    return key ? QString::fromLatin1(key) : QString();
 }

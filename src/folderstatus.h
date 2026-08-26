@@ -33,7 +33,6 @@ class FolderStatusPrivate;
 class FolderStatus : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(FolderState state READ state)
 
 public:
     enum FolderState {
@@ -53,8 +52,9 @@ public:
     explicit FolderStatus(QObject *parent = 0);
     virtual ~FolderStatus();
 
-    FolderState state() const;
     void setState(const FolderState state);
+
+    QString stateString() const;
 
 private:
     FolderStatusPrivate *d;
