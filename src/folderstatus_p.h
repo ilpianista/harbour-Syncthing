@@ -27,7 +27,8 @@
 
 #include "folderstatus.h"
 
-struct FolderStatusPrivate {
+struct FolderStatusPrivate
+{
     FolderStatus::FolderState state;
 };
 

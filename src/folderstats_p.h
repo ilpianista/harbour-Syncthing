@@ -27,7 +27,8 @@
 
 #include "folderstats.h"
 
-struct FolderStatsPrivate {
+struct FolderStatsPrivate
+{
     QDateTime lastFileAt;
     QString lastFileFilename;
     bool lastFileDeleted;

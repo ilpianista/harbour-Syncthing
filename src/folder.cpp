@@ -27,8 +27,9 @@
 
 #include "folder_p.h"
 
-Folder::Folder(QObject *parent) : QObject(parent)
-  , d(new FolderPrivate)
+Folder::Folder(QObject *parent)
+    : QObject(parent)
+    , d(new FolderPrivate)
 {
     d->stats = new FolderStats(this);
     d->status = new FolderStatus(this);
@@ -81,23 +82,23 @@ void Folder::setPaused(const bool paused)
     d->paused = paused;
 }
 
-FolderStats* Folder::stats()
+FolderStats *Folder::stats()
 {
     return d->stats;
 }
 
-void Folder::setStats(FolderStats* stats)
+void Folder::setStats(FolderStats *stats)
 {
     delete d->stats;
     d->stats = stats;
 }
 
-FolderStatus* Folder::status()
+FolderStatus *Folder::status()
 {
     return d->status;
 }
 
-void Folder::setStatus(FolderStatus* status)
+void Folder::setStatus(FolderStatus *status)
 {
     delete d->status;
     d->status = status;

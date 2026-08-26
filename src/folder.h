@@ -39,8 +39,8 @@ class Folder : public QObject
     Q_PROPERTY(QString label READ label)
     Q_PROPERTY(QString path READ path)
     Q_PROPERTY(bool paused READ paused)
-    Q_PROPERTY(FolderStats* stats READ stats)
-    Q_PROPERTY(FolderStatus* status READ status)
+    Q_PROPERTY(FolderStats *stats READ stats)
+    Q_PROPERTY(FolderStatus *status READ status)
 
 public:
     explicit Folder(QObject *parent = 0);
@@ -58,15 +58,14 @@ public:
     bool paused() const;
     void setPaused(const bool paused);
 
-    FolderStats* stats();
-    void setStats(FolderStats* stats);
+    FolderStats *stats();
+    void setStats(FolderStats *stats);
 
-    FolderStatus* status();
-    void setStatus(FolderStatus* status);
+    FolderStatus *status();
+    void setStatus(FolderStatus *status);
 
 private:
     FolderPrivate *d;
-
 };
 
 #endif // FOLDER_H

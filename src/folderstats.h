@@ -57,7 +57,6 @@ public:
 
 private:
     FolderStatsPrivate *d;
-
 };
 
 #endif // FOLDERSTATS_H

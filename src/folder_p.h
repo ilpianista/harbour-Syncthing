@@ -29,13 +29,14 @@
 #include "folderstats.h"
 #include "folderstatus.h"
 
-struct FolderPrivate {
+struct FolderPrivate
+{
     QString id;
     QString label;
     QString path;
     bool paused;
-    FolderStats* stats;
-    FolderStatus* status;
+    FolderStats *stats;
+    FolderStatus *status;
 };
 
 #endif // FOLDER_PRIVATE_H

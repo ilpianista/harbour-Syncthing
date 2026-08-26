@@ -28,8 +28,9 @@
 
 #include "folderstatus_p.h"
 
-FolderStatus::FolderStatus(QObject *parent) : QObject(parent)
-  , d(new FolderStatusPrivate)
+FolderStatus::FolderStatus(QObject *parent)
+    : QObject(parent)
+    , d(new FolderStatusPrivate)
 {
     d->state = Unknown;
 }

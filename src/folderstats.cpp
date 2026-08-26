@@ -26,10 +26,10 @@
 
 #include "folderstats_p.h"
 
-FolderStats::FolderStats(QObject *parent) : QObject(parent)
-  , d(new FolderStatsPrivate)
-{
-}
+FolderStats::FolderStats(QObject *parent)
+    : QObject(parent)
+    , d(new FolderStatsPrivate)
+{}
 
 FolderStats::~FolderStats()
 {

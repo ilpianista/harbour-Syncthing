@@ -27,7 +27,7 @@ jobs:
             syncthing_arch: arm64
           - arch: i486
             syncthing_arch: 386
-    
+
     steps:
     - uses: actions/checkout@v5
 

@@ -22,8 +22,8 @@ public:
     QList<Folder *> getFolders();
 
 private:
-    FolderStatus* getFolderStatus(const QString folderId);
-    QMap<QString, FolderStats*> getFolderStats();
+    FolderStatus *getFolderStatus(const QString folderId);
+    QMap<QString, FolderStats *> getFolderStats();
 
     QNetworkAccessManager *network;
 };
