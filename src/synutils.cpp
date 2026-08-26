@@ -1,21 +1,19 @@
 #include "synutils.h"
 
 #include <QDebug>
-#include <QDomDocument>
 #include <QDir>
+#include <QDomDocument>
 #include <QFile>
 #include <QStandardPaths>
 
-SynUtils::SynUtils()
+SynUtils::SynUtils() {}
+
+QString SynUtils::getApiKey()
 {
-
-}
-
-QString SynUtils::getApiKey() {
     QDomDocument xml;
 
     QFile configFile(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation)
-                            + QDir::separator() + "syncthing" + QDir::separator() + "config.xml");
+                     + QDir::separator() + "syncthing" + QDir::separator() + "config.xml");
 
     if (!configFile.open(QIODevice::ReadOnly)) {
         qCritical() << "Error while loading file";

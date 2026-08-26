@@ -1,5 +1,3 @@
-
-
 /*
     Copyright (C) 2021-2023 Andrea Scarpino <andrea@scarpino.dev>
     All rights reserved.
@@ -87,8 +85,8 @@ Page {
         target: Qt.application
         onStateChanged: {
             if (Qt.application.state === Qt.ApplicationActive) {
-                refresh.restart()
-                model.getFolders()
+                refresh.restart();
+                model.getFolders();
             }
         }
     }
@@ -100,40 +98,43 @@ Page {
 
         onTriggered: {
             if (client.getHealth()) {
-                sleep.running = false
-                browser.enabled = refreshFolders.enabled = true
-                model.getFolders()
-                refresh.running = true
+                sleep.running = false;
+                browser.enabled = refreshFolders.enabled = true;
+                model.getFolders();
+                refresh.running = true;
             }
         }
     }
 
     Component.onCompleted: {
-        systemd.typedCall('StartUnit', [{
-                                            "type": 's',
-                                            "value": 'syncthing.service'
-                                        }, {
-                                            "type": 's',
-                                            "value": 'fail'
-                                        }], function (result) {
-                                            sleep.running = true
-                                        }, function (error, message) {
-                                            console.log("failed (" + error + ") with:",
-                                                        message)
-                                        })
+        systemd.typedCall('StartUnit', [
+            {
+                "type": 's',
+                "value": 'syncthing.service'
+            },
+            {
+                "type": 's',
+                "value": 'fail'
+            }
+        ], function (result) {
+            sleep.running = true;
+        }, function (error, message) {
+            console.log("failed (" + error + ") with:", message);
+        });
     }
 
     Component.onDestruction: {
-        systemd.typedCall('StopUnit', [{
-                                           "type": 's',
-                                           "value": 'syncthing.service'
-                                       }, {
-                                           "type": 's',
-                                           "value": 'fail'
-                                       }], function (result) {},
-                                       function (error, message) {
-                                           console.log("failed (" + error + ") with:",
-                                                       message)
-                                       })
+        systemd.typedCall('StopUnit', [
+            {
+                "type": 's',
+                "value": 'syncthing.service'
+            },
+            {
+                "type": 's',
+                "value": 'fail'
+            }
+        ], function (result) {}, function (error, message) {
+            console.log("failed (" + error + ") with:", message);
+        });
     }
 }

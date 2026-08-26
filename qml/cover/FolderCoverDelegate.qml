@@ -32,20 +32,20 @@ ListItem {
         switch (folderStatusText) {
         case "Scanning":
         case "ScanWaiting":
-            return "image://theme/icon-m-search"
+            return "image://theme/icon-m-search";
         case "SyncWaiting":
         case "SyncPreparing":
         case "Syncing":
-            return "image://theme/icon-m-sync"
+            return "image://theme/icon-m-sync";
         case "Cleaning":
         case "CleanWaiting":
-            return "image://theme/icon-m-delete"
+            return "image://theme/icon-m-delete";
         case "Error":
-            return "image://theme/icon-m-warning"
+            return "image://theme/icon-m-warning";
         case "Idle":
-            return "image://theme/icon-m-acknowledge"
+            return "image://theme/icon-m-acknowledge";
         default:
-            return ""
+            return "";
         }
     }
 

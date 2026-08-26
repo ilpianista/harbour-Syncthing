@@ -49,7 +49,7 @@ public:
     explicit FolderModel(QObject *parent = 0);
     virtual ~FolderModel();
 
-    virtual int rowCount(const QModelIndex&) const { return backing.size(); }
+    virtual int rowCount(const QModelIndex &) const { return backing.size(); }
     virtual QVariant data(const QModelIndex &index, int role) const;
 
     QHash<int, QByteArray> roleNames() const;
@@ -57,7 +57,7 @@ public:
     Q_INVOKABLE void getFolders();
 
 private:
-    QVector<Folder*> backing;
+    QVector<Folder *> backing;
     SynClient *client;
     bool m_loading;
 };

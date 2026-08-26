@@ -57,14 +57,14 @@ CoverBackground {
 
     onStatusChanged: {
         if (status === Cover.Active)
-            model.getFolders()
+            model.getFolders();
     }
 
     CoverActionList {
         CoverAction {
             iconSource: "image://theme/icon-cover-sync"
             onTriggered: function () {
-                model.getFolders()
+                model.getFolders();
             }
         }
     }
