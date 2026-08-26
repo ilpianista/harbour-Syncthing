@@ -1,3 +1,7 @@
+* Wed Aug 26 2026 Andrea Scarpino <andrea@scarpino.dev> 0.1.3-1
+- Show status icons next to folders.
+- Add Dutch translation.
+
 * Wed Aug 19 2026 Andrea Scarpino <andrea@scarpino.dev> 0.1.2-1
 - Refresh folder list every 30 seconds
 - Update syncthing to 2.1.3.
