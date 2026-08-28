@@ -86,6 +86,48 @@ void FolderModel::getFolders()
     m_loading = false;
 }
 
+void FolderModel::setFolderPaused(const QString &id, bool paused)
+{
+    client->setFolderPaused(id, paused);
+
+    for (int i = 0; i < backing.size(); ++i) {
+        if (backing[i]->id() == id) {
+            backing[i]->setPaused(paused);
+            QVector<int> roles;
+            roles << PausedRole;
+            emit dataChanged(index(i), index(i), roles);
+            break;
+        }
+    }
+}
+
+void FolderModel::pauseAll()
+{
+    setAllPaused(true);
+}
+
+void FolderModel::resumeAll()
+{
+    setAllPaused(false);
+}
+
+void FolderModel::setAllPaused(bool paused)
+{
+    for (int i = 0; i < backing.size(); ++i) {
+        Folder *f = backing[i];
+        if (f->paused() != paused) {
+            client->setFolderPaused(f->id(), paused);
+            f->setPaused(paused);
+        }
+    }
+
+    if (!backing.isEmpty()) {
+        QVector<int> roles;
+        roles << PausedRole;
+        emit dataChanged(index(0), index(backing.size() - 1), roles);
+    }
+}
+
 QVariant FolderModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {

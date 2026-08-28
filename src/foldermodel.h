@@ -56,7 +56,13 @@ public:
 
     Q_INVOKABLE void getFolders();
 
+    Q_INVOKABLE void setFolderPaused(const QString &id, bool paused);
+    Q_INVOKABLE void pauseAll();
+    Q_INVOKABLE void resumeAll();
+
 private:
+    void setAllPaused(bool paused);
+
     QVector<Folder *> backing;
     SynClient *client;
     bool m_loading;

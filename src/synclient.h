@@ -21,6 +21,8 @@ public:
 
     QList<Folder *> getFolders();
 
+    Q_INVOKABLE void setFolderPaused(const QString &id, bool paused);
+
 private:
     FolderStatus *getFolderStatus(const QString folderId);
     QMap<QString, FolderStats *> getFolderStats();

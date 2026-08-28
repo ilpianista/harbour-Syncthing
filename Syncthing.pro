@@ -8,6 +8,7 @@ SOURCES += \
     src/folderstats.cpp \
     src/folderstatus.cpp \
     src/main.cpp \
+    src/settings.cpp \
     src/synclient.cpp \
     src/synutils.cpp
 
@@ -16,6 +17,7 @@ OTHER_FILES += \
     qml/cover/FolderCoverDelegate.qml \
     qml/pages/FolderDelegate.qml \
     qml/pages/MainPage.qml \
+    qml/pages/SettingsPage.qml \
     qml/Syncthing.qml \
     harbour-syncthing.desktop \
     rpm/harbour-syncthing.changes \
@@ -39,6 +41,7 @@ HEADERS += \
     src/folderstats_p.h \
     src/folderstatus.h \
     src/folderstatus_p.h \
+    src/settings.h \
     src/synclient.h \
     src/synutils.h
 

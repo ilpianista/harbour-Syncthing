@@ -38,6 +38,11 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("Settings")
+                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+            }
+
+            MenuItem {
                 id: browser
                 text: qsTr("Open in browser")
                 enabled: false
@@ -51,6 +56,18 @@ Page {
                 enabled: false
 
                 onClicked: model.getFolders()
+            }
+
+            MenuItem {
+                text: qsTr("Resume all")
+                enabled: list.count > 0
+                onClicked: model.resumeAll()
+            }
+
+            MenuItem {
+                text: qsTr("Pause all")
+                enabled: list.count > 0
+                onClicked: model.pauseAll()
             }
         }
 
@@ -124,17 +141,19 @@ Page {
     }
 
     Component.onDestruction: {
-        systemd.typedCall('StopUnit', [
-            {
-                "type": 's',
-                "value": 'syncthing.service'
-            },
-            {
-                "type": 's',
-                "value": 'fail'
-            }
-        ], function (result) {}, function (error, message) {
-            console.log("failed (" + error + ") with:", message);
-        });
+        if (!app.keepRunning) {
+            systemd.typedCall('StopUnit', [
+                {
+                    "type": 's',
+                    "value": 'syncthing.service'
+                },
+                {
+                    "type": 's',
+                    "value": 'fail'
+                }
+            ], function (result) {}, function (error, message) {
+                console.log("failed (" + error + ") with:", message);
+            });
+        }
     }
 }

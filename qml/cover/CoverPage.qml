@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import harbour.syncthing 1.0
@@ -62,10 +61,13 @@ CoverBackground {
 
     CoverActionList {
         CoverAction {
-            iconSource: "image://theme/icon-cover-sync"
-            onTriggered: function () {
-                model.getFolders();
-            }
+            iconSource: "image://theme/icon-cover-pause"
+            onTriggered: model.pauseAll()
+        }
+
+        CoverAction {
+            iconSource: "image://theme/icon-cover-play"
+            onTriggered: model.resumeAll()
         }
     }
 }

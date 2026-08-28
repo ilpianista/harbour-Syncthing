@@ -21,6 +21,7 @@
 #include <sailfishapp.h>
 
 #include "foldermodel.h"
+#include "settings.h"
 #include "synclient.h"
 
 int main(int argc, char *argv[])
@@ -32,7 +33,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName(QStringLiteral("dev.scarpino"));
 
     SynClient client;
+    Settings settings;
+
     view->rootContext()->setContextProperty("client", &client);
+    view->rootContext()->setContextProperty("settings", &settings);
 
     qmlRegisterType<FolderModel>("harbour.syncthing", 1, 0, "FolderModel");
 

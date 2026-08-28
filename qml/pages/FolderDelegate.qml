@@ -28,8 +28,20 @@ ListItem {
     id: listItem
 
     width: ListView.view.width
-    height: col.height
-    contentHeight: Theme.itemSizeLarge
+    contentHeight: col.height + Theme.paddingLarge * 2
+
+    property var syncthingModel: ListView.view.model
+    property string folderId: id
+    property bool folderPaused: paused
+
+    menu: ContextMenu {
+        id: contextMenu
+
+        MenuItem {
+            text: listItem.folderPaused ? qsTr("Resume") : qsTr("Pause")
+            onClicked: listItem.syncthingModel.setFolderPaused(listItem.folderId, !listItem.folderPaused)
+        }
+    }
 
     property string stateIcon: {
         switch (folderStatusText) {

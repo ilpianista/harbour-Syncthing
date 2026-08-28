@@ -24,6 +24,7 @@
 
 #include "synclient.h"
 
+#include <QBuffer>
 #include <QEventLoop>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -125,6 +126,29 @@ QList<Folder *> SynClient::getFolders()
     reply->deleteLater();
 
     return folders;
+}
+
+void SynClient::setFolderPaused(const QString &id, bool paused)
+{
+    QUrl url(BASE_URL + QLatin1String("/rest/config/folders/") + id);
+
+    QNetworkRequest req(url);
+    req.setRawHeader(QByteArray("X-API-Key"), SynUtils::getApiKey().toLatin1());
+    req.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("application/json"));
+
+    QJsonObject body;
+    body.insert(QStringLiteral("paused"), paused);
+
+    QByteArray data = QJsonDocument(body).toJson();
+    QBuffer buffer(&data);
+    buffer.open(QIODevice::ReadOnly);
+    QNetworkReply *reply = network->sendCustomRequest(req, QByteArrayLiteral("PATCH"), &buffer);
+
+    QEventLoop loop;
+    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    reply->deleteLater();
 }
 
 QMap<QString, FolderStats *> SynClient::getFolderStats()
