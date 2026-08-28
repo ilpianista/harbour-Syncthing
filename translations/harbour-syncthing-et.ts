@@ -9,11 +9,11 @@
     </message>
     <message>
         <source>Resume</source>
-        <translation type="unfinished"></translation>
+        <translation>Jätka</translation>
     </message>
     <message>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Peata</translation>
     </message>
 </context>
 <context>
@@ -36,34 +36,34 @@
     </message>
     <message>
         <source>Pause all</source>
-        <translation type="unfinished"></translation>
+        <translation>Peata kõik</translation>
     </message>
     <message>
         <source>Resume all</source>
-        <translation type="unfinished"></translation>
+        <translation>Jätka kõiki</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistused</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistused</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Üldseadistused</translation>
     </message>
     <message>
         <source>Keep running in background</source>
-        <translation type="unfinished"></translation>
+        <translation>Jäta tööle taustal</translation>
     </message>
     <message>
         <source>Leave the syncthing daemon running when the application quits</source>
-        <translation type="unfinished"></translation>
+        <translation>Rakendusest väljumisel jäta syncthingi teenus taustal tööle</translation>
     </message>
 </context>
 </TS>
