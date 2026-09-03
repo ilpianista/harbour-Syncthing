@@ -9,11 +9,11 @@
     </message>
     <message>
         <source>Resume</source>
-        <translation type="unfinished"></translation>
+        <translation>Hervatten</translation>
     </message>
     <message>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Pauzeren</translation>
     </message>
 </context>
 <context>
@@ -36,34 +36,34 @@
     </message>
     <message>
         <source>Pause all</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles pauzeren</translation>
     </message>
     <message>
         <source>Resume all</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles hervatten</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingen</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellingen</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>Algemeen</translation>
     </message>
     <message>
         <source>Keep running in background</source>
-        <translation type="unfinished"></translation>
+        <translation>Actief houden op de achtergrond</translation>
     </message>
     <message>
         <source>Leave the syncthing daemon running when the application quits</source>
-        <translation type="unfinished"></translation>
+        <translation>Laat de syncthing-daemon op de achtergrond draaien wanneer de app gesloten wordt</translation>
     </message>
 </context>
 </TS>
