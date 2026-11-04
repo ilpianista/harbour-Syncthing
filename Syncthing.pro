@@ -31,6 +31,7 @@ TRANSLATIONS += \
     translations/harbour-syncthing-it.ts \
     translations/harbour-syncthing-nb_NO.ts \
     translations/harbour-syncthing-nl.ts \
+    translations/harbour-syncthing-sk.ts \
     translations/harbour-syncthing-sv.ts
 
 HEADERS += \
