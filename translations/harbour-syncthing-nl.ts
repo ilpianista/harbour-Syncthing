@@ -42,28 +42,5 @@
         <source>Resume all</source>
         <translation>Alles hervatten</translation>
     </message>
-    <message>
-        <source>Settings</source>
-        <translation>Instellingen</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsPage</name>
-    <message>
-        <source>Settings</source>
-        <translation>Instellingen</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>Algemeen</translation>
-    </message>
-    <message>
-        <source>Keep running in background</source>
-        <translation>Actief houden op de achtergrond</translation>
-    </message>
-    <message>
-        <source>Leave the syncthing daemon running when the application quits</source>
-        <translation>Laat de syncthing-daemon op de achtergrond draaien wanneer de app gesloten wordt</translation>
-    </message>
 </context>
 </TS>

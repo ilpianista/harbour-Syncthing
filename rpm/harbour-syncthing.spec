@@ -94,6 +94,10 @@ desktop-file-install --delete-original       \
 %{_userunitdir}/syncthing.service
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
+%dir %{_datadir}/jolla-settings/pages/syncthing
+%{_datadir}/jolla-settings/pages/syncthing/*.qml
+%{_datadir}/jolla-settings/entries/syncthing.json
+%{_datadir}/translations/settings-syncthing*.qm
 # >> files
 # << files
 

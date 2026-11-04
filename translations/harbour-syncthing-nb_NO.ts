@@ -42,28 +42,5 @@
         <source>Resume all</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SettingsPage</name>
-    <message>
-        <source>Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Keep running in background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Leave the syncthing daemon running when the application quits</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 </TS>

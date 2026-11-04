@@ -20,10 +20,6 @@ import Sailfish.Silica 1.0
 import "pages"
 
 ApplicationWindow {
-    id: app
-
-    property bool keepRunning: settings.keepRunning
-
     initialPage: Component {
         MainPage {}
     }

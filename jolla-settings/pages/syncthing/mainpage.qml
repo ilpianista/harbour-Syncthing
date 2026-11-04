@@ -18,10 +18,10 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
+import Nemo.Configuration 1.0
 
 Page {
-
-    allowedOrientations: Orientation.All
+    id: page
 
     DBusInterface {
         id: systemd
@@ -40,11 +40,13 @@ Page {
             width: parent.width
 
             PageHeader {
-                title: qsTr("Settings")
+                title: qsTr("Syncthing")
             }
 
-            SectionHeader {
-                text: qsTr("General")
+            ConfigurationValue {
+                id: keepRunning
+                key: "/apps/harbour-syncthing/settings/keepRunning"
+                defaultValue: false
             }
 
             TextSwitch {
@@ -52,9 +54,8 @@ Page {
                 text: qsTr("Keep running in background")
                 description: qsTr("Leave the syncthing daemon running when the application quits")
 
-                checked: app.keepRunning
+                checked: keepRunning.value
                 onCheckedChanged: {
-                    app.keepRunning = checked;
                     if (checked) {
                         systemd.typedCall('EnableUnitFiles', [
                             {
@@ -70,9 +71,33 @@ Page {
                                 "value": false
                             }
                         ], function (result) {}, function (error, message) {
-                            console.log("failed (" + error + ") with:", message);
+                            console.log("enable failed (" + error + ") with:", message);
+                        });
+                        systemd.typedCall('StartUnit', [
+                            {
+                                "type": 's',
+                                "value": 'syncthing.service'
+                            },
+                            {
+                                "type": 's',
+                                "value": 'fail'
+                            }
+                        ], function (result) {}, function (error, message) {
+                            console.log("start failed (" + error + ") with:", message);
                         });
                     } else {
+                        systemd.typedCall('StopUnit', [
+                            {
+                                "type": 's',
+                                "value": 'syncthing.service'
+                            },
+                            {
+                                "type": 's',
+                                "value": 'fail'
+                            }
+                        ], function (result) {}, function (error, message) {
+                            console.log("stop failed (" + error + ") with:", message);
+                        });
                         systemd.typedCall('DisableUnitFiles', [
                             {
                                 "type": 'as',
@@ -83,14 +108,12 @@ Page {
                                 "value": false
                             }
                         ], function (result) {}, function (error, message) {
-                            console.log("failed (" + error + ") with:", message);
+                            console.log("disable failed (" + error + ") with:", message);
                         });
                     }
-                    settings.keepRunning = checked;
+                    keepRunning.value = checked;
                 }
             }
         }
-
-        VerticalScrollDecorator {}
     }
 }

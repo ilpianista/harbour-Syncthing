@@ -7,6 +7,14 @@
         <source>Last scan: %1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Resume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainPage</name>
@@ -25,6 +33,14 @@
     <message>
         <source>Pull down to refresh list</source>
         <translation>Potiahnite nadol pre obnovenie zoznamu</translation>
+    </message>
+    <message>
+        <source>Resume all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause all</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

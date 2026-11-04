@@ -42,28 +42,5 @@
         <source>Resume all</source>
         <translation>Jätka kõiki</translation>
     </message>
-    <message>
-        <source>Settings</source>
-        <translation>Seadistused</translation>
-    </message>
-</context>
-<context>
-    <name>SettingsPage</name>
-    <message>
-        <source>Settings</source>
-        <translation>Seadistused</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>Üldseadistused</translation>
-    </message>
-    <message>
-        <source>Keep running in background</source>
-        <translation>Jäta tööle taustal</translation>
-    </message>
-    <message>
-        <source>Leave the syncthing daemon running when the application quits</source>
-        <translation>Rakendusest väljumisel jäta syncthingi teenus taustal tööle</translation>
-    </message>
 </context>
 </TS>

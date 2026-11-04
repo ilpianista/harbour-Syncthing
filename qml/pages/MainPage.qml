@@ -18,10 +18,10 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
+import Nemo.Configuration 1.0
 import harbour.syncthing 1.0
 
 Page {
-
     allowedOrientations: Orientation.All
 
     DBusInterface {
@@ -37,11 +37,6 @@ Page {
         anchors.fill: parent
 
         PullDownMenu {
-            MenuItem {
-                text: qsTr("Settings")
-                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
-            }
-
             MenuItem {
                 id: browser
                 text: qsTr("Open in browser")
@@ -140,8 +135,14 @@ Page {
         });
     }
 
+    ConfigurationValue {
+        id: keepRunning
+        key: "/apps/harbour-syncthing/settings/keepRunning"
+        defaultValue: false
+    }
+
     Component.onDestruction: {
-        if (!app.keepRunning) {
+        if (!keepRunning.value) {
             systemd.typedCall('StopUnit', [
                 {
                     "type": 's',

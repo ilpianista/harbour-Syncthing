@@ -1,0 +1,14 @@
+{
+    "translation_catalog": "settings-syncthing",
+    "entries": [
+        {
+            "path": "applications/harbour-syncthing.desktop",
+            "title": "Syncthing",
+            "translation_id": "settings_syncthing_entryname",
+            "type": "application",
+            "params": {
+                "source": "/usr/share/jolla-settings/pages/syncthing/mainpage.qml"
+            }
+        }
+    ]
+}
