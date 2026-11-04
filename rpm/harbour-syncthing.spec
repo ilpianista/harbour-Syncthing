@@ -62,7 +62,7 @@ fi
 # >> build pre
 # << build pre
 
-%qtc_qmake5
+%qtc_qmake5 Syncthing.pro
 
 %qtc_make %{?_smp_mflags}
 
