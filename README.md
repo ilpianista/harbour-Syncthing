@@ -4,7 +4,9 @@
 
 ## Install
 
-Install via [OpenRepos](https://openrepos.net/content/ilpianista/syncthing).
+Install via Harpoon:
+
+[![Add to Harpoon](add-to-harpoon.png)](https://github.com/JuhaniLehtimaeki/Harpoon)
 
 ## Translations
 
