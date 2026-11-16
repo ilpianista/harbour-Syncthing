@@ -19,8 +19,9 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Nemo.DBus 2.0
 import Nemo.Configuration 1.0
+import com.jolla.settings 1.0
 
-Page {
+ApplicationSettings {
     id: page
 
     DBusInterface {
@@ -31,89 +32,75 @@ Page {
         iface: 'org.freedesktop.systemd1.Manager'
     }
 
-    SilicaFlickable {
-        anchors.fill: parent
-        contentHeight: content.height
+    ConfigurationValue {
+        id: keepRunning
+        key: "/apps/harbour-syncthing/settings/keepRunning"
+        defaultValue: false
+    }
 
-        Column {
-            id: content
-            width: parent.width
+    TextSwitch {
+        id: keepRunningSwitch
+        text: qsTr("Keep running in background")
+        description: qsTr("Leave the syncthing daemon running when the application quits")
 
-            PageHeader {
-                title: qsTr("Syncthing")
-            }
-
-            ConfigurationValue {
-                id: keepRunning
-                key: "/apps/harbour-syncthing/settings/keepRunning"
-                defaultValue: false
-            }
-
-            TextSwitch {
-                id: keepRunningSwitch
-                text: qsTr("Keep running in background")
-                description: qsTr("Leave the syncthing daemon running when the application quits")
-
-                checked: keepRunning.value
-                onCheckedChanged: {
-                    if (checked) {
-                        systemd.typedCall('EnableUnitFiles', [
-                            {
-                                "type": 'as',
-                                "value": ['syncthing.service']
-                            },
-                            {
-                                "type": 'b',
-                                "value": false
-                            },
-                            {
-                                "type": 'b',
-                                "value": false
-                            }
-                        ], function (result) {}, function (error, message) {
-                            console.log("enable failed (" + error + ") with:", message);
-                        });
-                        systemd.typedCall('StartUnit', [
-                            {
-                                "type": 's',
-                                "value": 'syncthing.service'
-                            },
-                            {
-                                "type": 's',
-                                "value": 'fail'
-                            }
-                        ], function (result) {}, function (error, message) {
-                            console.log("start failed (" + error + ") with:", message);
-                        });
-                    } else {
-                        systemd.typedCall('StopUnit', [
-                            {
-                                "type": 's',
-                                "value": 'syncthing.service'
-                            },
-                            {
-                                "type": 's',
-                                "value": 'fail'
-                            }
-                        ], function (result) {}, function (error, message) {
-                            console.log("stop failed (" + error + ") with:", message);
-                        });
-                        systemd.typedCall('DisableUnitFiles', [
-                            {
-                                "type": 'as',
-                                "value": ['syncthing.service']
-                            },
-                            {
-                                "type": 'b',
-                                "value": false
-                            }
-                        ], function (result) {}, function (error, message) {
-                            console.log("disable failed (" + error + ") with:", message);
-                        });
+        checked: keepRunning.value
+        onCheckedChanged: {
+            if (checked) {
+                systemd.typedCall('EnableUnitFiles', [
+                    {
+                        "type": 'as',
+                        "value": ['syncthing.service']
+                    },
+                    {
+                        "type": 'b',
+                        "value": false
+                    },
+                    {
+                        "type": 'b',
+                        "value": false
                     }
-                    keepRunning.value = checked;
-                }
+                ], function (result) {}, function (error, message) {
+                    console.log("enable failed (" + error + ") with:", message);
+                });
+                systemd.typedCall('StartUnit', [
+                    {
+                        "type": 's',
+                        "value": 'syncthing.service'
+                    },
+                    {
+                        "type": 's',
+                        "value": 'fail'
+                    }
+                ], function (result) {}, function (error, message) {
+                    console.log("start failed (" + error + ") with:", message);
+                });
+            } else {
+                systemd.typedCall('StopUnit', [
+                    {
+                        "type": 's',
+                        "value": 'syncthing.service'
+                    },
+                    {
+                        "type": 's',
+                        "value": 'fail'
+                    }
+                ], function (result) {}, function (error, message) {
+                    console.log("stop failed (" + error + ") with:", message);
+                });
+                systemd.typedCall('DisableUnitFiles', [
+                    {
+                        "type": 'as',
+                        "value": ['syncthing.service']
+                    },
+                    {
+                        "type": 'b',
+                        "value": false
+                    }
+                ], function (result) {}, function (error, message) {
+                    console.log("disable failed (" + error + ") with:", message);
+                });
             }
+            keepRunning.value = checked;
         }
     }
 }
