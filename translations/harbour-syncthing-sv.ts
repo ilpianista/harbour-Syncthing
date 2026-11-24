@@ -5,7 +5,7 @@
     <name>FolderDelegate</name>
     <message>
         <source>Last scan: %1</source>
-        <translation> Senaste skanning:</translation>
+        <translation>Senaste skanning: %1</translation>
     </message>
     <message>
         <source>Resume</source>
